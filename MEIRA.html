@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEIRA — Legal Metrology Enforcement & Intelligence Risk Analytics</title>
+  <style>
+  #meira-root, #meira-root * { box-sizing: border-box; }
+  #meira-root {
+    --paper: #FFFFFF;
+    --paper-dark: #F1F3F0;
+    --ink: #0B3D62;
+    --ink-soft: #5C6670;
+    --line: #C9D0D5;
+    --olive: #0B3D62;
+    --olive-dark: #072A44;
+    --brick: #B3261E;
+    --ochre: #E07A00;
+    --moss: #128807;
+    --grey: #7B8288;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    background: var(--paper);
+    color: #222222;
+    min-height: 640px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    position: relative;
+    border: 1px solid #D9DCDD;
+  }
+  #meira-root h1, #meira-root h2, #meira-root h3 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+  #meira-root .tricolor { display:flex; height:5px; }
+  #meira-root .tricolor div { flex:1; }
+  #meira-root .tricolor .saffron { background:#FF9933; }
+  #meira-root .tricolor .white { background:#FFFFFF; border-top:1px solid #ddd; border-bottom:1px solid #ddd; }
+  #meira-root .tricolor .green { background:#128807; }
+  #meira-root .govbar {
+    background:#F1F3F0; border-bottom:1px solid #D9DCDD; padding:4px 20px; font-size:10.5px; color:#4A5157;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; align-items:center;
+  }
+  #meira-root .govbar span { margin-right:12px; }
+  #meira-root .govbar a { color:#0B3D62; text-decoration:underline; cursor:pointer; }
+  #meira-root .lang-btn {
+    color: var(--ink);
+    cursor: pointer;
+    padding: 2px 6px;
+    font-weight: normal;
+    text-decoration: none !important;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  #meira-root .lang-btn:hover { background: #E1E6EB; }
+  #meira-root .lang-btn.active-lang {
+    font-weight: bold;
+    background: var(--ink);
+    color: #FFFFFF !important;
+  }
+  #meira-root .emblem {
+    width:34px; height:34px; border-radius:50%; border:2px solid #0B3D62;
+    display:flex; align-items:center; justify-content:center; position:relative; background:#fff; flex-shrink:0;
+  }
+  #meira-root .emblem::before {
+    content:''; position:absolute; width:26px; height:26px; border-radius:50%;
+    background: repeating-conic-gradient(#0B3D62 0deg 15deg, transparent 15deg 30deg);
+  }
+  #meira-root .emblem::after { content:''; position:absolute; width:8px; height:8px; border-radius:50%; background:#0B3D62; }
+  #meira-root button {
+    font-family: Verdana, Arial, sans-serif;
+    cursor: pointer;
+  }
+  #meira-root input, #meira-root select, #meira-root textarea {
+    font-family: Verdana, Arial, sans-serif;
+    background: #FFFFFF;
+    border: 1px solid #ABB4BA;
+    color: #222;
+    padding: 6px 8px;
+    font-size: 12.5px;
+    width: 100%;
+  }
+  #meira-root input:focus, #meira-root select:focus, #meira-root textarea:focus {
+    outline: 2px solid var(--ink);
+    outline-offset: 0;
+  }
+  #meira-root input.is-invalid, #meira-root select.is-invalid, #meira-root textarea.is-invalid {
+    border-color: var(--brick) !important;
+    background-color: #FFF9F9;
+  }
+  #meira-root .field-error {
+    color: var(--brick);
+    font-size: 10.5px;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  #meira-root .btn {
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+  #meira-root .btn:hover { background: var(--olive-dark); border-color: var(--olive-dark); }
+  #meira-root .btn.ghost { background: #FFFFFF; color: var(--ink); }
+  #meira-root .btn.ghost:hover { background: #EFF2F4; }
+  #meira-root .btn.brick { background: var(--brick); border-color: var(--brick); color: #fff; }
+  #meira-root .btn.brick:hover { background: #8E1C15; border-color: #8E1C15; }
+  #meira-root .btn.moss { background: var(--moss); border-color: var(--moss); color: #fff; }
+  #meira-root .btn.moss:hover { background: #0E6D06; border-color: #0E6D06; }
+  #meira-root .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  #meira-root .card {
+    border: 1px solid var(--line);
+    background: #FFFFFF;
+    padding: 16px;
+  }
+  #meira-root .stamp {
+    display: inline-block;
+    border: 1px solid currentColor;
+    padding: 2px 8px;
+    font-size: 10.5px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+  }
+  #meira-root table { width: 100%; border-collapse: collapse; font-size: 12px; border:1px solid var(--line); }
+  #meira-root th {
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    background: #F1F3F0;
+    padding: 7px 8px;
+    font-weight: bold;
+    color: var(--ink);
+    font-size: 11px;
+  }
+  #meira-root td { border-bottom: 1px solid var(--line); padding: 8px 8px; vertical-align: middle; }
+  #meira-root tr:nth-child(even) td { background: #FAFBF9; }
+  #meira-root tr:hover td { background: #EEF2E9; }
+  #meira-root .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  #meira-root .field { flex: 1; min-width: 160px; margin-bottom: 10px; }
+  #meira-root label { display: block; font-size: 10.5px; color: var(--ink-soft); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.03em; font-weight:600; }
+  #meira-root .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 20px; border-bottom: 2px solid var(--ink); background: #FFFFFF;
+  }
+  #meira-root .brand { display:flex; align-items:center; gap:10px; }
+  #meira-root .brand-mark {
+    width: 30px; height: 30px; border: 2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    font-family: Verdana, Arial, sans-serif; font-weight:bold; font-size:14px; background: #fff; color: var(--ink);
+  }
+  #meira-root .tabs { display:flex; gap:2px; border-bottom: 2px solid var(--ink); margin-bottom: 18px; flex-wrap: wrap; }
+  #meira-root .tab { padding: 7px 14px; font-size: 11.5px; font-weight:bold; border: 1px solid var(--line); border-bottom:none; cursor:pointer; color: var(--ink-soft); background:#F1F3F0; }
+  #meira-root .tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+  #meira-root .badge { display:inline-block; padding: 2px 8px; font-size: 10px; font-weight:bold; border:1px solid; letter-spacing:0.02em; text-align:center; }
+  #meira-root .badge.valid { color: var(--moss); border-color: var(--moss); background:#E9F6E6; }
+  #meira-root .badge.warn { color: var(--ochre); border-color: var(--ochre); background:#FFF2E0; }
+  #meira-root .badge.crit { color: var(--brick); border-color: var(--brick); background:#FBE9E8; }
+  #meira-root .badge.grey { color: var(--grey); border-color: var(--grey); background:#F1F1F1; }
+  #meira-root .stat { border: 1px solid var(--line); border-top:3px solid var(--ink); padding: 12px 14px; min-width: 130px; background:#fff; }
+  #meira-root .stat .n { font-family: Verdana, Arial, sans-serif; font-size: 26px; font-weight:bold; line-height:1; color:var(--ink); }
+  #meira-root .stat .l { font-size: 10px; color: var(--ink-soft); margin-top: 5px; text-transform:uppercase; letter-spacing:0.03em; }
+  #meira-root .container { padding: 20px 22px; max-width: 1180px; margin: 0 auto; }
+  #meira-root a.link { color: #0645AD; text-decoration: underline; cursor:pointer; }
+  #meira-root .divider { border-top: 1px solid var(--line); margin: 16px 0; }
+  #meira-root .hist-item { border-left: 3px solid var(--ochre); padding: 4px 0 4px 12px; margin-bottom: 8px; font-size: 11.5px; }
+  #meira-root .hist-item .t { color: var(--ink-soft); font-size: 10px; }
+  #meira-root ::placeholder { color: #9aa1a6; }
+  #meira-root .login-shell { max-width: 380px; margin: 30px auto; }
+  #meira-root .role-pick { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  #meira-root .role-btn { border: 1px solid var(--line); border-top:3px solid var(--ink); padding: 14px; text-align:left; background:#fff; cursor:pointer; }
+  #meira-root .role-btn:hover { background: #F1F3F0; }
+  #meira-root .role-btn .rt { font-family: Verdana, Arial, sans-serif; font-weight:bold; font-size:13px; color:var(--ink); }
+  #meira-root .role-btn .rs { font-size: 10.5px; color: var(--ink-soft); margin-top:3px; }
+  #meira-root .qr-box { background:#fff; padding: 10px; display:inline-block; border:1px solid var(--ink); }
+  #meira-root .kv { display:grid; grid-template-columns: 160px 1fr; gap: 6px 10px; font-size: 12.5px; }
+  #meira-root .kv div:nth-child(odd) { color: var(--ink-soft); font-weight:500; }
+  #meira-root .msg { padding:8px 12px; border:1px solid var(--line); font-size:11.5px; margin-bottom:12px; background:#F1F3F0; }
+  #meira-root .msg.err { border-color: var(--brick); color: var(--brick); background:#FBE9E8; }
+  #meira-root .msg.ok { border-color: var(--moss); color: var(--moss); background:#E9F6E6; }
+  #meira-root .scan-modal {
+    position:fixed; inset:0; background:rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center; z-index:9999;
+  }
+  #meira-root .scan-box { background:#111; padding:20px; border:3px solid var(--ochre); text-align:center; width:320px; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+  #meira-root .viewfinder { width:260px; height:220px; margin:0 auto; position:relative; border:1px solid rgba(255,255,255,0.25); overflow:hidden; background:#000; }
+  #meira-root .viewfinder .corner { position:absolute; width:26px; height:26px; border: 3px solid #34C759; z-index:5; }
+  #meira-root .viewfinder .c1 { top:-2px; left:-2px; border-right:none; border-bottom:none; }
+  #meira-root .viewfinder .c2 { top:-2px; right:-2px; border-left:none; border-bottom:none; }
+  #meira-root .viewfinder .c3 { bottom:-2px; left:-2px; border-right:none; border-top:none; }
+  #meira-root .viewfinder .c4 { bottom:-2px; right:-2px; border-left:none; border-top:none; }
+  #meira-root .scanline { position:absolute; left:4%; width:92%; height:2px; background:#34C759; box-shadow:0 0 8px #34C759; animation: meira-scan 1.8s linear infinite; z-index:6; }
+  #meira-root .ocr-target-frame {
+    position:absolute; inset:25% 10%; border:1px dashed #34C759; display:flex; align-items:center; justify-content:center; color:rgba(52,199,89,0.85); font-size:9.5px; font-weight:bold; letter-spacing:0.05em; z-index:4;
+  }
+  @keyframes meira-scan { 0%{top:6%;} 50%{top:92%;} 100%{top:6%;} }
+  #meira-root .chip-btn {
+    background:#EFF2F4; border:1px solid #ABB4BA; padding:3px 8px; font-size:11px; border-radius:3px; cursor:pointer; color:var(--ink);
+  }
+  #meira-root .chip-btn:hover { background:#0B3D62; color:#fff; border-color:#0B3D62; }
+  #meira-root .param-box {
+    background: #FAFBFB; border: 1px solid var(--line); border-radius: 4px; padding: 12px; margin-bottom: 10px;
+  }
+  #meira-root .param-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-weight: bold; font-size: 11.5px; color: var(--ink);
+  }
+  #meira-root .fine-box {
+    background: #FFF5F5; border: 1px solid var(--brick); border-left: 4px solid var(--brick); padding: 12px; margin-top: 10px; border-radius: 4px;
+  }
+  #meira-root .fine-amount { font-size: 16px; font-weight: bold; color: var(--brick); }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#EBF0F3;">
+
+<div id="meira-root"></div>
+
+<script>
+(function(){
+
+// Self-contained QR-style code renderer (no external dependency, always renders).
+function drawPseudoQR(container, text, sizePx){
+  const N = 25;
+  function hash(str){ let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  let seed = hash(text);
+  function rnd(){ seed = (seed * 1103515245 + 12345) >>> 0; return (seed >>> 8) / 16777216; }
+  const grid = Array.from({length:N}, () => Array(N).fill(0));
+  function isFinderZone(r,c){
+    const zones = [[0,0],[0,N-7],[N-7,0]];
+    return zones.some(([zr,zc]) => r>=zr && r<zr+7 && c>=zc && c<zc+7);
+  }
+  function drawFinder(r0,c0){
+    for (let r=0;r<7;r++) for (let c=0;c<7;c++){
+      const onBorder = r===0||r===6||c===0||c===6;
+      const inCore = r>=2&&r<=4&&c>=2&&c<=4;
+      grid[r0+r][c0+c] = (onBorder || inCore) ? 1 : 0;
+    }
+  }
+  drawFinder(0,0); drawFinder(0,N-7); drawFinder(N-7,0);
+  for (let i=8;i<N-8;i++){ grid[6][i] = i%2===0?1:0; grid[i][6] = i%2===0?1:0; }
+  for (let r=0;r<N;r++) for (let c=0;c<N;c++){
+    if (isFinderZone(r,c)) continue;
+    if (r===6||c===6) continue;
+    grid[r][c] = rnd() > 0.55 ? 1 : 0;
+  }
+  const scale = Math.floor(sizePx / N);
+  const px = scale * N;
+  const svgRows = [];
+  for (let r=0;r<N;r++) for (let c=0;c<N;c++){
+    if (grid[r][c]) svgRows.push(`<rect x="${c*scale}" y="${r*scale}" width="${scale}" height="${scale}" fill="#141414"/>`);
+  }
+  container.innerHTML = `<svg width="${px}" height="${px}" viewBox="0 0 ${px} ${px}" style="display:block;">
+    <rect width="${px}" height="${px}" fill="#ffffff"/>${svgRows.join('')}
+  </svg>`;
+}
+
+// ---------- AHMEDABAD REGIONS REGISTRY ----------
+const AHMEDABAD_REGIONS = [
+  'Kalupur',
+  'Vatva GIDC',
+  'Naroda GIDC',
+  'Sarkhej',
+  'Maninagar',
+  'Navrangpura',
+  'SG Highway',
+  'Chandkheda'
+];
+
+// ---------- MULTI-LANGUAGE TRANSLATION (i18n) ----------
+let currentLang = 'en';
+try {
+  const savedLang = localStorage.getItem('meira_lang');
+  if (savedLang && ['en','hi','gu'].includes(savedLang)) currentLang = savedLang;
+} catch(e) {}
+
+const I18N = {
+  en: {
+    gov_skip: "Skip to Main Content",
+    gov_screen_reader: "Screen Reader Access",
+    brand_sub: "Metrology Enforcement & Intelligence Risk Analytics · Govt. Legal Metrology Ecosystem",
+    logout: "Log out",
+    role: "ROLE",
+    proto_stamp: "PROTOTYPE — DEMO DATA",
+    signin: "Sign in",
+    signin_desc: "eMaap / State Dept. data integration sits upstream of MEIRA. This prototype simulates that layer — everything below is generated by real actions taken in this session.",
+    role_admin: "ADMIN",
+    role_admin_sub: "Command centre & assignment",
+    role_lmo: "LMO",
+    role_lmo_sub: "Field verification officer",
+    role_gatc: "GATC",
+    role_gatc_sub: "Test centre portal",
+    role_owner: "OWNER",
+    role_owner_sub: "Instrument owner / business",
+    public_btn: "Continue as Public — Verify a Certificate",
+    demo_accounts: "DEMO ACCOUNTS",
+    email: "Email",
+    password: "Password",
+    login_btn: "Log in",
+    invalid_creds: "Invalid credentials for this role.",
+    owner_portal: "Owner Portal",
+    tab_new_req: "New Request",
+    tab_my_reqs: "My Requests",
+    tab_my_certs: "My Certificates",
+    tab_history: "History",
+    form_title: "New Verification Request",
+    lbl_biz_name: "Business / Owner Name *",
+    lbl_contact: "Contact Number (10 numerical digits) *",
+    lbl_area: "Area / Region in Ahmedabad *",
+    lbl_address: "Full Address *",
+    lbl_category: "Instrument Category *",
+    lbl_type: "Instrument Type *",
+    lbl_mfg: "Manufacturer *",
+    lbl_model: "Model *",
+    lbl_serial: "Serial Number *",
+    lbl_capacity: "Capacity *",
+    lbl_platform_size: "Platform Size *",
+    lbl_accuracy_class: "Accuracy Class *",
+    lbl_flow_rate: "Flow / Measuring Range *",
+    btn_submit_req: "Submit Request",
+    err_biz_name: "Business/Owner name must be at least 3 characters.",
+    err_contact: "Contact number must be exactly 10 numeric digits.",
+    err_area: "Area / Locality is required (at least 2 characters).",
+    err_address: "Full address must be at least 5 characters.",
+    err_mfg: "Manufacturer name is required (at least 2 characters).",
+    err_model: "Model name is required (at least 2 characters).",
+    err_serial: "Serial number is required (at least 3 alphanumeric characters).",
+    err_capacity: "Capacity must be a positive number (e.g. 50 kg).",
+    err_flow_rate: "Flow / Measuring range is required.",
+    err_platform_size: "Platform size is required.",
+    err_generic_fix: "Please correct highlighted fields before submitting.",
+    risk_params_title: "OPERATIONAL RISK PARAMETERS & INDIVIDUAL MULTIPLIERS",
+    risk_params_sub: "Explicitly declare operational parameters and individual multipliers for this request.",
+    cmd_centre: "Command Centre",
+    tab_overview: "Overview",
+    tab_incoming: "Incoming Requests",
+    tab_certs: "Certificates",
+    tab_anomaly: "Anomaly Detection",
+    tab_audit: "Audit Log",
+    stat_total: "Total Requests",
+    stat_awaiting: "Awaiting Assignment",
+    stat_field: "In Field / Test Centre",
+    stat_completed: "Completed",
+    stat_certs: "Certificates Issued",
+    stat_valid: "Currently Valid",
+    stat_expired: "Expired",
+    stat_serial_flags: "Serial Mismatch Flags",
+    stat_anomalies: "Open Anomaly Flags",
+    stat_high_risk: "High/Critical Risk Applications",
+    stat_fines: "Misdeclaration Fines Levied",
+    filter_all: "All Requests",
+    filter_high_risk: "High & Critical Priority",
+    th_priority: "Actual Risk Score",
+    th_params: "Parametric Breakdown (W, E, L, D)",
+    th_req: "Request",
+    th_owner: "Owner",
+    th_inst: "Instrument",
+    th_area: "Region",
+    th_status: "Status",
+    th_assigned: "Assigned",
+    th_actions: "Actions",
+    btn_why: "Why? (Formula)",
+    btn_assign: "Assign",
+    tab_assignments: "My Assignments",
+    btn_open: "Open",
+    btn_back: "← Back to Assignments",
+    start_verification: "Start Verification (capture GPS + timestamp)",
+    checklist_title: "INSPECTION CHECKLIST (MANDATORY)",
+    chk_seal: "Verification seal present & intact",
+    chk_condition: "Physical condition satisfactory (no defects / tampering)",
+    chk_display: "Display / zero indication normal",
+    testing_title: "ACCURACY & ERROR TOLERANCE TESTING (LEGAL METROLOGY ACT)",
+    lbl_declared: "Declared / Standard Value (Theoretical) *",
+    lbl_measured: "Measured Value (Actual) *",
+    lbl_tolerance: "Permissible Tolerance Limit (MPE) *",
+    lbl_unit: "Testing Unit",
+    tol_pass: "PASS — Measured difference is within statutory tolerance limit.",
+    tol_fail: "FAIL — Measured error exceeds permissible tolerance! Approval is prohibited.",
+    ocr_title: "SERIAL NUMBER VERIFICATION — OCR",
+    ocr_reg_serial: "Registered Serial No",
+    ocr_cam_box_title: "DEVICE CAMERA OCR SCANNER",
+    ocr_cam_box_desc: "Align your device camera with the serial number plate on the weighing/measuring instrument",
+    ocr_open_cam_btn: "📷 Open Device Camera — Scan Serial Plate",
+    ocr_cam_hint: "Uses device optical sensor with real-time OCR optical character recognition",
+    ocr_captured_lbl: "Captured Serial (camera / photo OCR)",
+    ocr_match_ok: "✅ MATCH — captured serial matches registered record.",
+    ocr_review_warn: "⚠️ Possible match (1 character different) — likely OCR noise. Visual confirmation required.",
+    ocr_mismatch_err: "🔴 Serial Number Mismatch — captured serial does not match registered record! This will be flagged.",
+    btn_submit_cert: "Submit Verification & Generate Certificate",
+    btn_reject_app: "❌ Reject Application (Issue Rejection Order)",
+    rej_modal_title: "Statutory Rejection Order",
+    rej_reason_lbl: "Statutory Grounds for Rejection *",
+    rej_remarks_lbl: "Officer Findings & Technical Observations (Mandatory) *",
+    rej_confirm_btn: "Confirm Rejection & Issue Statutory Notice",
+    rej_cancel_btn: "Cancel",
+    pub_verify_title: "Verify a Legal Metrology Certificate",
+    pub_verify_sub: "Scan the QR code on the instrument, or enter the Certificate ID printed below it.",
+    pub_scan_btn: "▣ Scan QR Code",
+    pub_check_btn: "Check",
+    pub_report_btn: "Report Suspicious Instrument",
+    param_workload: "Workload",
+    param_expertise: "Expertise",
+    param_location: "Location",
+    param_duration: "Duration",
+    param_multiplier: "Individual Multiplier",
+    field_portal: "Verification Portal",
+    v_field_verification: "Field Verification & Inspection",
+    risk_audit_title: "RISK SCORE LEGITIMACY AUDIT (STATUTORY MANDATE)",
+    risk_audit_sub: "Verify whether the customer's declared risk parameters and operational score match physical reality.",
+    risk_audit_chk: "I hereby verify and certify that the customer's declared operational risk score ({score} pts) is authentic and legit based on physical on-site inspection.",
+    risk_audit_statutory_note: "Statutory Notice: Falsifying risk metrics to lower scrutiny or misrepresenting operations carries a mandatory fine of ₹5,000 under Section 53 of the Legal Metrology Act.",
+    risk_audit_flag_btn: "⚠️ Flag Misdeclared / Illegitimate Score (Levy ₹5,000 Fine)",
+    risk_audit_unflag_btn: "Cancel Discrepancy Flag",
+    err_risk_unverified: "Mandatory Audit Required: You must certify that the customer's declared risk score is legit, or flag it as misdeclared with a ₹5,000 fine before finalization.",
+    fine_banner_title: "STATUTORY PENALTY NOTICE — MISDECLARED RISK ASSESSMENT",
+    fine_pay_btn: "Pay Statutory Fine (e-Challan)",
+    fine_paid_badge: "✓ FINE REMITTED",
+  },
+  hi: {
+    gov_skip: "मुख्य सामग्री पर जाएं",
+    gov_screen_reader: "स्क्रीन रीडर एक्सेस",
+    brand_sub: "विधिक मापविज्ञान प्रवर्तन एवं जोखिम विश्लेषण · सरकारी विधिक मापविज्ञान इकोसिस्टम",
+    logout: "लॉग आउट",
+    role: "भूमिका",
+    proto_stamp: "प्रोटोटाइप — डेमो डेटा",
+    signin: "साइन इन करें",
+    signin_desc: "ई-माप / राज्य विभाग डेटा एकीकरण MEIRA से जुड़ा है। यह प्रोटोटाइप उस परत का अनुकरण करता है — सभी क्रियाएं वास्तविक डेटा बनाती हैं।",
+    role_admin: "ADMIN",
+    role_admin_sub: "कमांड सेंटर एवं असाइनमेंट",
+    role_lmo: "LMO",
+    role_lmo_sub: "क्षेत्र सत्यापन अधिकारी (फील्ड)",
+    role_gatc: "GATC",
+    role_gatc_sub: "परीक्षण केंद्र पोर्टल",
+    role_owner: "OWNER",
+    role_owner_sub: "उपकरण स्वामी / व्यवसायी",
+    public_btn: "नागरिक के रूप में जारी रखें — प्रमाणपत्र सत्यापित करें",
+    demo_accounts: "डेमो खाते",
+    email: "ईमेल",
+    password: "पासवर्ड",
+    login_btn: "लॉग इन",
+    invalid_creds: "इस भूमिका के लिए अमान्य क्रेडेंशियल्स।",
+    owner_portal: "स्वामी पोर्टल",
+    tab_new_req: "नया अनुरोध",
+    tab_my_reqs: "मेरे अनुरोध",
+    tab_my_certs: "मेरे प्रमाणपत्र",
+    tab_history: "इतिहास",
+    form_title: "नया सत्यापन अनुरोध",
+    lbl_biz_name: "व्यवसाय / स्वामी का नाम *",
+    lbl_contact: "संपर्क नंबर (10 अंक अनिवार्य) *",
+    lbl_area: "अहमदाबाद क्षेत्र / इलाका *",
+    lbl_address: "पूरा पता *",
+    lbl_category: "उपकरण श्रेणी *",
+    lbl_type: "उपकरण का प्रकार *",
+    lbl_mfg: "निर्माता कंपनी का नाम *",
+    lbl_model: "मॉडल नंबर / नाम *",
+    lbl_serial: "सीरियल नंबर *",
+    lbl_capacity: "क्षमता (उदा. 50 kg) *",
+    lbl_platform_size: "प्लेटफ़ॉर्म का आकार *",
+    lbl_accuracy_class: "सटीकता वर्ग *",
+    lbl_flow_rate: "प्रवाह / माप सीमा *",
+    btn_submit_req: "सत्यापन अनुरोध सबमिट करें",
+    err_biz_name: "व्यवसाय/स्वामी का नाम कम से कम 3 अक्षरों का होना चाहिए।",
+    err_contact: "संपर्क नंबर ठीक 10 अंकों का संख्यात्मक होना चाहिए।",
+    err_area: "क्षेत्र / इलाका आवश्यक है (कम से कम 2 अक्षर)।",
+    err_address: "पूरा पता कम से कम 5 अक्षरों का होना चाहिए।",
+    err_mfg: "निर्माता का नाम आवश्यक है (कम से कम 2 अक्षर)।",
+    err_model: "मॉडल आवश्यक है (कम से कम 2 अक्षर)।",
+    err_serial: "सीरियल नंबर आवश्यक है (कम से कम 3 अक्षर/अंक)।",
+    err_capacity: "क्षमता एक मान्य सकारात्मक संख्या होनी चाहिए (उदा. 50 kg)।",
+    err_flow_rate: "प्रवाह दर / मापने की सीमा आवश्यक है।",
+    err_platform_size: "प्लेटफ़ॉर्म का आकार आवश्यक है।",
+    err_generic_fix: "सबमिट करने से पहले कृपया हाइलाइट की गई त्रुटियों को ठीक करें।",
+    risk_params_title: "परिचालन जोखिम पैरामीटर्स एवं व्यक्तिगत गुणक",
+    risk_params_sub: "इस अनुरोध के लिए स्पष्ट परिचालन पैरामीटर और व्यक्तिगत गुणक निर्धारित करें।",
+    cmd_centre: "कमांड सेंटर",
+    tab_overview: "अवलोकन",
+    tab_incoming: "आने वाले अनुरोध",
+    tab_certs: "प्रमाणपत्र",
+    tab_anomaly: "विसंगति पहचान",
+    tab_audit: "ऑडिट लॉग",
+    stat_total: "कुल अनुरोध",
+    stat_awaiting: "असाइनमेंट प्रतीक्षित",
+    stat_field: "फील्ड / लैब में",
+    stat_completed: "सत्यापन पूर्ण",
+    stat_certs: "जारी प्रमाणपत्र",
+    stat_valid: "वर्तमान में मान्य",
+    stat_expired: "समाप्त",
+    stat_serial_flags: "सीरियल बेमेल फ्लैग",
+    stat_anomalies: "खुली विसंगतियां",
+    stat_high_risk: "उच्च/गंभीर जोखिम आवेदन",
+    stat_fines: "जोखिम हेराफेरी जुर्माना राशि",
+    filter_all: "सभी अनुरोध",
+    filter_high_risk: "उच्च एवं गंभीर प्राथमिकता",
+    th_priority: "वास्तविक जोखिम स्कोर",
+    th_params: "पैरामीट्रिक विवरण (W, E, L, D)",
+    th_req: "अनुरोध",
+    th_owner: "स्वामी",
+    th_inst: "उपकरण",
+    th_area: "क्षेत्र",
+    th_status: "स्थिति",
+    th_assigned: "असाइन किया गया",
+    th_actions: "कार्रवाई",
+    btn_why: "कारण? (सूत्र)",
+    btn_assign: "असाइन करें",
+    tab_assignments: "मेरे असाइनमेंट",
+    btn_open: "खोलें",
+    btn_back: "← वापस असाइनमेंट पर",
+    start_verification: "सत्यापन शुरू करें (GPS + समय कैप्चर करें)",
+    checklist_title: "निरीक्षण चेकलिस्ट (अनिवार्य)",
+    chk_seal: "सत्यापन सील मौजूद और बरकरार है",
+    chk_condition: "भौतिक स्थिति संतोषजनक है (कोई खराबी/छेड़छाड़ नहीं)",
+    chk_display: "डिस्प्ले / शून्य संकेत सामान्य है",
+    testing_title: "सटीकता एवं त्रुटि सहनशीलता परीक्षण (विधिक मापविज्ञान अधिनियम)",
+    lbl_declared: "घोषित मानक मान (सैद्धांतिक) *",
+    lbl_measured: "मापा गया मान (वास्तविक) *",
+    lbl_tolerance: "अनुमेय सहिष्णुता सीमा (MPE Limit) *",
+    lbl_unit: "परीक्षण इकाई",
+    tol_pass: "पास — मापी गई त्रुटि कानूनी सहनशीलता सीमा के भीतर है।",
+    tol_fail: "फेल — मापी गई त्रुटि अनुमेय सीमा से अधिक है! अनुमोदन प्रतिबंधित है।",
+    ocr_title: "सीरियल नंबर सत्यापन — कैमरा OCR",
+    ocr_reg_serial: "पंजीकृत सीरियल नंबर",
+    ocr_cam_box_title: "डिवाइस कैमरा OCR स्कैनर",
+    ocr_cam_box_desc: "उपकरण की सीरियल नंबर प्लेट पर डिवाइस कैमरा संरेखित करें",
+    ocr_open_cam_btn: "📷 कैमरा खोलें — सीरियल स्कैन करें",
+    ocr_cam_hint: "रियल-टाइम OCR तकनीक के साथ डिवाइस कैमरे का उपयोग करता है",
+    ocr_captured_lbl: "कैप्चर किया गया सीरियल (कैमरा / फोटो OCR)",
+    ocr_match_ok: "✅ मैच — कैप्चर किया गया सीरियल पंजीकृत रिकॉर्ड से मेल खाता है।",
+    ocr_review_warn: "⚠️ संभावित मैच (1 अक्षर भिन्न) — देखकर पुष्टि करें।",
+    ocr_mismatch_err: "🔴 सीरियल बेमेल — कैप्चर किया गया सीरियल रिकॉर्ड से मेल नहीं खाता! यह फ्लैग होगा।",
+    btn_submit_cert: "सत्यापन सबमिट करें और प्रमाणपत्र जारी करें",
+    btn_reject_app: "❌ आवेदन अस्वीकार करें (अस्वीकृति आदेश जारी करें)",
+    rej_modal_title: "वैधानिक अस्वीकृति आदेश",
+    rej_reason_lbl: "अस्वीकृति का वैधानिक आधार *",
+    rej_remarks_lbl: "अधिकारी की तकनीकी टिप्पणियाँ (अनिवार्य) *",
+    rej_confirm_btn: "अस्वीकृति की पुष्टि करें एवं आदेश जारी करें",
+    rej_cancel_btn: "रद्द करें",
+    pub_verify_title: "विधिक मापविज्ञान प्रमाणपत्र सत्यापित करें",
+    pub_verify_sub: "उपकरण पर लगे QR कोड को स्कैन करें या नीचे मुद्रित प्रमाणपत्र आईडी दर्ज करें।",
+    pub_scan_btn: "▣ QR कोड स्कैन करें",
+    pub_check_btn: "जांचें",
+    pub_report_btn: "संदिग्ध उपकरण की रिपोर्ट करें",
+    param_workload: "कार्यभार",
+    param_expertise: "विशेषज्ञता",
+    param_location: "स्थान",
+    param_duration: "अवधि",
+    param_multiplier: "व्यक्तिगत गुणक",
+    field_portal: "सत्यापन पोर्टल",
+    v_field_verification: "फील्ड सत्यापन एवं भौतिक निरीक्षण",
+    risk_audit_title: "जोखिम स्कोर वैधता ऑडिट (वैधानिक अनिवार्यता)",
+    risk_audit_sub: "सत्यापित करें कि क्या ग्राहक द्वारा घोषित जोखिम पैरामीटर और स्कोर वास्तविक स्थिति से मेल खाते हैं।",
+    risk_audit_chk: "मैं प्रमाणित करता हूँ कि ग्राहक द्वारा घोषित परिचालन जोखिम स्कोर ({score} अंक) भौतिक निरीक्षण के आधार पर वैध और प्रामाणिक है।",
+    risk_audit_statutory_note: "वैधानिक सूचना: विधिक मापविज्ञान अधिनियम की धारा 53 के तहत गलत जोखिम जानकारी देने पर ₹5,000 का अनिवार्य जुर्माना देय है।",
+    risk_audit_flag_btn: "⚠️ गलत/अवैध जोखिम स्कोर फ्लैग करें (₹5,000 का जुर्माना लगाएं)",
+    risk_audit_unflag_btn: "जुर्माना फ्लैग रद्द करें",
+    err_risk_unverified: "अनिवार्य ऑडिट आवश्यक: अंतिम रूप देने से पहले आपको प्रमाणित करना होगा कि ग्राहक का जोखिम स्कोर वैध है अथवा ₹5,000 के जुर्माने के साथ इसे अवैध चिन्हित करें।",
+    fine_banner_title: "वैधानिक जुर्माना नोटिस — गलत जोखिम मूल्यांकन",
+    fine_pay_btn: "वैधानिक जुर्माना भरें (ई-चालान)",
+    fine_paid_badge: "✓ जुर्माना भर दिया गया",
+  },
+  gu: {
+    gov_skip: "મુખ્ય વિષયવસ્તુ પર જાઓ",
+    gov_screen_reader: "સ્ક્રીન રીડર એક્સેસ",
+    brand_sub: "કાનૂની માપવિજ્ઞાન અમલીકરણ અને જોખમ વિશ્લેષણ · સરકારી ઇકોસિસ્ટમ",
+    logout: "લૉગ આઉટ",
+    role: "ભૂમિકા",
+    proto_stamp: "પ્રોટોટાઇપ — ડેમો ડેટા",
+    signin: "સાઇન ઇન કરો",
+    signin_desc: "ઇ-માપ / રાજ્ય વિભાગ ડેટા એકીકરણ MEIRA સાથે સંકલિત છે. આ પ્રોટોટાઇપ તે સ્તરનું અનુકરણ કરે છે.",
+    role_admin: "ADMIN",
+    role_admin_sub: "કમાન્ડ સેન્ટર અને સોંપણી",
+    role_lmo: "LMO",
+    role_lmo_sub: "ક્ષેત્ર ચકાસણી અધિકારી (ફીલ્ડ)",
+    role_gatc: "GATC",
+    role_gatc_sub: "પરીક્ષણ કેન્દ્ર પોર્ટલ",
+    role_owner: "OWNER",
+    role_owner_sub: "સાધન માલિક / વેપારી",
+    public_btn: "નાગરિક તરીકે ચાલુ રાખો — પ્રમાણપત્ર ચકાસો",
+    demo_accounts: "ડેમો એકાઉન્ટ્સ",
+    email: "ઇમેઇલ",
+    password: "પાસવર્ડ",
+    login_btn: "લૉગ ઇન",
+    invalid_creds: "આ ભૂમિકા માટે અમાન્ય વિગતો.",
+    owner_portal: "માલિક પોર્ટલ",
+    tab_new_req: "નવી વિનંતી",
+    tab_my_reqs: "મારી વિનંતીઓ",
+    tab_my_certs: "મારા પ્રમાણપત્રો",
+    tab_history: "ઇતિહાસ",
+    form_title: "નવી ચકાસણી વિનંતી",
+    lbl_biz_name: "પેઢી / માલિકનું નામ *",
+    lbl_contact: "સંપર્ક નંબર (૧૦ અંક) *",
+    lbl_area: "અમદાવાદ વિસ્તાર / સ્થળ *",
+    lbl_address: "સંપૂર્ણ સરનામું *",
+    lbl_category: "સાધનની શ્રેણી *",
+    lbl_type: "સાધનનો પ્રકાર *",
+    lbl_mfg: "ઉત્પાદક કંપનીનું નામ *",
+    lbl_model: "મોડલ નંબર / નામ *",
+    lbl_serial: "સીરીયલ નંબર *",
+    lbl_capacity: "ક્ષમતા (દા.ત. 50 kg) *",
+    lbl_platform_size: "પ્લેટફોર્મનું કદ *",
+    lbl_accuracy_class: "ચોકસાઈ વર્ગ *",
+    lbl_flow_rate: "પ્રવાહ / માપન શ્રેણી *",
+    btn_submit_req: "ચકાસણી વિનંતી સબમિટ કરો",
+    err_biz_name: "પેઢી/માલિકનું નામ ઓછામાં ઓછું ૩ અક્ષરનું હોવું જોઈએ.",
+    err_contact: "સંપર્ક નંબર બરાબર ૧૦ આંકડાનો સંખ્યાત્મક હોવો જોઈએ.",
+    err_area: "વિસ્તાર જરૂરી છે (ઓછામાં ઓછા ૨ અક્ષર).",
+    err_address: "સંપૂર્ણ સરનામું ઓછામાં ઓછું ૫ અક્ષરનું હોવું જોઈએ.",
+    err_mfg: "ઉત્પાદકનું નામ જરૂરી છે (ઓછામાં ઓછા ૨ અક્ષર).",
+    err_model: "મોડલ જરૂરી છે (ઓછામાં ઓછા ૨ અક્ષર).",
+    err_serial: "સીરીયલ નંબર જરૂરી છે (ઓછામાં ઓછા ૩ અક્ષર/અંક).",
+    err_capacity: "ક્ષમતા માન્ય ધન સંખ્યા હોવી જોઈએ (દા.ત. 50 kg).",
+    err_flow_rate: "પ્રવાહ દર / માપન શ્રેણી જરૂરી છે.",
+    err_platform_size: "પ્લેટફોર્મનું કદ જરૂરી છે.",
+    err_generic_fix: "સબમિટ કરતા પહેલાં કૃપા કરીને દર્શાવેલ ભૂલો સુધારો.",
+    risk_params_title: "ઓપરેશનલ જોખમ પેરામીટર્સ અને વ્યક્તિગત ગુણક",
+    risk_params_sub: "આ વિનંતી માટે ઓપરેશનલ પેરામીટર્સ અને વ્યક્તિગત ગુણક પસંદ કરો.",
+    cmd_centre: "કમાન્ડ સેન્ટર",
+    tab_overview: "વિહંગાવલોકન",
+    tab_incoming: "આવતી વિનંતીઓ",
+    tab_certs: "પ્રમાણપત્રો",
+    tab_anomaly: "વિસંગતતા શોધ",
+    tab_audit: "ઓડિટ લોગ",
+    stat_total: "કુલ વિનંતીઓ",
+    stat_awaiting: "સોંપણી બાકી",
+    stat_field: "ક્ષેત્રમાં / લેબમાં",
+    stat_completed: "ચકાસણી પૂર્ણ",
+    stat_certs: "ઇશ્યૂ કરેલા પ્રમાણપત્રો",
+    stat_valid: "માન્ય પ્રમાણપત્રો",
+    stat_expired: "મુદત પૂરી થયેલ",
+    stat_serial_flags: "સીરીયલ મેળ ન ખાવાના ફ્લેગ",
+    stat_anomalies: "ખુલ્લી વિસંગતતાઓ",
+    stat_high_risk: "ઉચ્ચ જોખમ અરજીઓ",
+    stat_fines: "ખોટા જોખમ સ્કોર પર દંડ",
+    filter_all: "બધી વિનંતીઓ",
+    filter_high_risk: "ઉચ્ચ અને ગંભીર અગ્રતા",
+    th_priority: "વાસ્તવિક જોખમ સ્કોર",
+    th_params: "પેરામીટ્રિક વિગત (W, E, L, D)",
+    th_req: "વિનંતી",
+    th_owner: "માલિક",
+    th_inst: "સાધન",
+    th_area: "વિસ્તાર",
+    th_status: "સ્થિતિ",
+    th_assigned: "સોંપાયેલ",
+    th_actions: "કાર્યવાહી",
+    btn_why: "શા માટે? (સૂત્ર)",
+    btn_assign: "સોંપો",
+    tab_assignments: "મારી સોંપણીઓ",
+    btn_open: "ખોલો",
+    btn_back: "← પાછા સોંપણીઓ પર",
+    start_verification: "ચકાસણી શરૂ કરો (GPS + સમય કેપ્ચર કરો)",
+    checklist_title: "નિરીક્ષણ ચેકલિસ્ટ (ફરજિયાત)",
+    chk_seal: "ચકાસણી સીલ હાજર અને અકબંધ છે",
+    chk_condition: "શારીરિક સ્થિતિ સંતોષકારક છે (કોઈ ખામી/છેડછાડ નથી)",
+    chk_display: "ડિસ્પ્લે / શૂન્ય સંકેત સામાન્ય છે",
+    testing_title: "ચોકસાઈ અને ભૂલ સહનશીલતા પરીક્ષણ (કાનૂની માપવિજ્ઞાન કાયદો)",
+    lbl_declared: "જાહેર કરેલ પ્રમાણભૂત મૂલ્ય (સૈદ્ધાંતિક) *",
+    lbl_measured: "માપેલ મૂલ્ય (વાસ્તવિક) *",
+    lbl_tolerance: "મંજૂર મહત્તમ સહનશીલતા (MPE મર્યાદા) *",
+    lbl_unit: "પરીક્ષણ એકમ",
+    tol_pass: "પાસ — માપેલ ભૂલ કાનૂની સહનશીલતા મર્યાદામાં છે.",
+    tol_fail: "નાપાસ — માપેલ ભૂલ મંજૂર સહનશીલતા કરતાં વધુ છે! મંજૂરી પ્રતિબંધિત છે.",
+    ocr_title: "સીરીયલ નંબર ચકાસણી — કેમેરા OCR",
+    ocr_reg_serial: "નોંધાયેલ સીરીયલ નંબર",
+    ocr_cam_box_title: "ડિવાઇસ કેમેરા OCR સ્કેનર",
+    ocr_cam_box_desc: "સાધનની સીરીયલ નંબર પ્લેટ પર ઉપકરણ કેમેરો કેન્દ્રિત કરો",
+    ocr_open_cam_btn: "📷 કેમેરો ખોલો — સીરીયલ સ્કેન કરો",
+    ocr_cam_hint: "રીઅલ-ટાઇમ OCR સાથે ઉપકરણ કેમેરાનો ઉપયોગ કરે છે",
+    ocr_captured_lbl: "કેપ્ચર કરેલ સીરીયલ (કેમેરા / ફોટો OCR)",
+    ocr_match_ok: "✅ મેચ — કેપ્ચર કરેલ સીરીયલ નોંધાયેલ રેકોર્ડ સાથે મેળ ખાય છે.",
+    ocr_review_warn: "⚠️ સંભવિત મેળ (૧ અક્ષર અલગ) — દૃષ્ટિથી ખાતરી કરો.",
+    ocr_mismatch_err: "🔴 સીરીયલ મેળ ખાતો નથી — કેપ્ચર કરેલ સીરીયલ રેકોર્ડ સાથે મેળ ખાતો નથી!",
+    btn_submit_cert: "ચકાસણી સબમિટ કરો અને પ્રમાણપત્ર જારી કરો",
+    btn_reject_app: "❌ અરજી અસ્વીકાર કરો (અસ્વીકાર આદેશ જારી કરો)",
+    rej_modal_title: "કાનૂની અસ્વીકાર આદેશ",
+    rej_reason_lbl: "અસ્વીકારનું કાનૂની કારણ *",
+    rej_remarks_lbl: "અધિકારીની તકનીકી નોંધ (ફરજિયાત) *",
+    rej_confirm_btn: "અસ્વીકારની પુષ્ટિ કરો અને આદેશ જારી કરો",
+    rej_cancel_btn: "રદ કરો",
+    pub_verify_title: "કાનૂની માપવિજ્ઞાન પ્રમાણપત્ર ચકાસો",
+    pub_verify_sub: "સાધન પરનો QR કોડ સ્કેન કરો અથવા પ્રમાણપત્ર ID દાખલ કરો.",
+    pub_scan_btn: "▣ QR કોડ સ્કેન કરો",
+    pub_check_btn: "તપાસો",
+    pub_report_btn: "શંકાસ્પદ સાધનની ફરિયાદ કરો",
+    param_workload: "કાર્યભાર",
+    param_expertise: "નિપુણતા",
+    param_location: "વિસ્તાર",
+    param_duration: "સમયગાળો",
+    param_multiplier: "વ્યક્તિગત ગુણક",
+    field_portal: "ચકાસણી પોર્ટલ",
+    v_field_verification: "સ્થળ ચકાસણી અને નિરીક્ષણ",
+    risk_audit_title: "જોખમ સ્કોર કાયદેસરતા ઓડિટ (કાયદાકીય આદેશ)",
+    risk_audit_sub: "ચકાસો કે ગ્રાહક દ્વારા જાહેર કરાયેલા જોખમ પરિમાણો અને સ્કોર વાસ્તવિકતા સાથે મેળ ખાય છે કે નહીં.",
+    risk_audit_chk: "હું પ્રમાણિત કરું છું કે ગ્રાહક દ્વારા જાહેર કરેલ જોખમ સ્કોર ({score} ગુણ) સ્થળ તપાસના આધારે સાચો અને માન્ય છે.",
+    risk_audit_statutory_note: "કાયદાકીય નોટિસ: ઓછી તપાસ માટે ખોટો જોખમ સ્કોર દર્શાવવા બદલ કલમ 53 હેઠળ ₹5,000 નો દંડ થશે.",
+    risk_audit_flag_btn: "⚠️ ખોટો જોખમ સ્કોર ફ્લેગ કરો (₹5,000 દંડ લગાવો)",
+    risk_audit_unflag_btn: "દંડ ફ્લેગ રદ કરો",
+    err_risk_unverified: "ઓડિટ ફરજિયાત: આખરી મંજૂરી આપતા પહેલાં જોખમ સ્કોર સાચો છે તેની ખાતરી કરો અથવા ₹5,000 દંડ સાથે ફ્લેગ કરો.",
+    fine_banner_title: "કાયદેસર દંડ નોટિસ — ખોટી જોખમ ગણતરી",
+    fine_pay_btn: "દંડ ભરો (ઈ-ચલાન)",
+    fine_paid_badge: "✓ દંડ ભરપાઈ થયો",
+  }
+};
+
+function t(key, fallback){
+  const dict = I18N[currentLang] || I18N.en;
+  return dict[key] || I18N.en[key] || fallback || key;
+}
+
+// ---------- STATE STORAGE & PERSISTENCE ----------
+const STORE_KEY = 'meira_state_v1';
+let state = null;
+let session = null;
+let view = 'login';
+let ctx = {};
+
+const ACCOUNTS = [
+  { role:'ADMIN', id:'admin-1', label:'Admin — Legal Metrology Dept.', email:'admin@meira.demo', pass:'admin123' },
+  { role:'LMO', id:'LMO-018', label:'LMO-018 · R. Chaudhary (Central/East)', email:'lmo018@meira.demo', pass:'lmo123' },
+  { role:'LMO', id:'LMO-027', label:'LMO-027 · S. Vora (South/West)', email:'lmo027@meira.demo', pass:'lmo123' },
+  { role:'GATC', id:'GATC-AHD-03', label:'GATC-AHD-03 · Ahmedabad Test Centre', email:'gatc@meira.demo', pass:'gatc123' },
+  { role:'OWNER', id:'OWNER-1', label:'ABC General Store (Kalupur)', email:'owner@meira.demo', pass:'owner123' },
+  { role:'OWNER', id:'OWNER-2', label:'Patel Weighing Co. (Vatva)', email:'owner2@meira.demo', pass:'owner123' },
+];
+
+const INSTRUMENT_TYPES = {
+  weighing: {
+    label: 'Weighing Machine',
+    types: {
+      'Electronic Platform Scale': ['manufacturer','model','serial','capacity'],
+      'Price Computing Weighing Instrument': ['manufacturer','model','serial','capacity'],
+      'Electronic Weighbridge': ['manufacturer','model','serial','capacity','platformSize','accuracyClass'],
+      'Digital Counter Scale': ['manufacturer','model','serial','capacity'],
+    }
+  },
+  volume: {
+    label: 'Volume Machine',
+    types: {
+      'Petrol Dispenser': ['manufacturer','model','serial','flowRate'],
+      'Gas Meter': ['manufacturer','model','serial','flowRate'],
+      'CNG Dispenser': ['manufacturer','model','serial','flowRate'],
+    }
+  }
+};
+
+function getFieldLabel(f){
+  const map = {
+    manufacturer: t('lbl_mfg'),
+    model: t('lbl_model'),
+    serial: t('lbl_serial'),
+    capacity: t('lbl_capacity'),
+    platformSize: t('lbl_platform_size'),
+    accuracyClass: t('lbl_accuracy_class'),
+    flowRate: t('lbl_flow_rate')
+  };
+  return map[f] || f;
+}
+
+function uid(prefix){ return prefix + '-' + Math.random().toString(36).slice(2,8).toUpperCase(); }
+function fmtDate(d){ if(!d) return '—'; d = new Date(d); return d.toLocaleDateString(currentLang==='hi'?'hi-IN':currentLang==='gu'?'gu-IN':'en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+function addDays(d, n){ const x = new Date(d); x.setDate(x.getDate()+n); return x; }
+function nowISO(){ return new Date().toISOString(); }
+function dayKey(iso){ return new Date(iso).toISOString().slice(0,10); }
+
+// ---------- OCR FUZZY SERIAL MATCHING ----------
+function levenshtein(a, b){
+  a = (a||'').toUpperCase().trim(); b = (b||'').toUpperCase().trim();
+  const m = a.length, n = b.length;
+  const dp = [];
+  for (let i=0;i<=m;i++){ dp.push(new Array(n+1).fill(0)); dp[i][0] = i; }
+  for (let j=0;j<=n;j++) dp[0][j] = j;
+  for (let i=1;i<=m;i++){
+    for (let j=1;j<=n;j++){
+      const cost = a[i-1]===b[j-1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i-1][j]+1, dp[i-1][j-1]+1, dp[i-1][j-1]+cost);
+    }
+  }
+  return dp[m][n];
+}
+function matchSerial(registered, captured){
+  const reg = (registered||'').toUpperCase().trim();
+  const cap = (captured||'').toUpperCase().trim();
+  if (!reg || !cap) return { status:'PENDING', distance:null };
+  if (reg === cap) return { status:'MATCH', distance:0 };
+  const distance = levenshtein(reg, cap);
+  if (distance <= 1) return { status:'REVIEW', distance };
+  return { status:'MISMATCH', distance };
+}
+function introduceOcrNoise(str, charsToAlter){
+  if (!str) return str;
+  const confusions = {'0':'O','O':'0','1':'I','I':'1','8':'B','B':'8','5':'S','S':'5','2':'Z','Z':'2'};
+  const chars = str.split('');
+  const idxs = new Set();
+  const n = Math.min(charsToAlter, chars.length);
+  while (idxs.size < n) idxs.add(Math.floor(Math.random()*chars.length));
+  idxs.forEach(i => { const c = chars[i]; chars[i] = confusions[c] || String.fromCharCode(65+Math.floor(Math.random()*26)); });
+  return chars.join('');
+}
+
+// ---------- COMPUTE RISK WITH INDIVIDUAL MULTIPLIERS ----------
+function calculateParametricRisk(req){
+  const rp = req.riskParams || {};
+  const wBase = (rp.workload && typeof rp.workload.base === 'number') ? rp.workload.base : 12;
+  const wMult = (rp.workload && typeof rp.workload.mult === 'number') ? rp.workload.mult : 1.20;
+
+  const eBase = (rp.expertise && typeof rp.expertise.base === 'number') ? rp.expertise.base : 15;
+  const eMult = (rp.expertise && typeof rp.expertise.mult === 'number') ? rp.expertise.mult : 1.25;
+
+  const lBase = (rp.location && typeof rp.location.base === 'number') ? rp.location.base : 15;
+  const lMult = (rp.location && typeof rp.location.mult === 'number') ? rp.location.mult : 1.20;
+
+  const dBase = (rp.duration && typeof rp.duration.base === 'number') ? rp.duration.base : 12;
+  const dMult = (rp.duration && typeof rp.duration.mult === 'number') ? rp.duration.mult : 1.25;
+
+  const wSub = Math.round(wBase * wMult);
+  const eSub = Math.round(eBase * eMult);
+  const lSub = Math.round(lBase * lMult);
+  const dSub = Math.round(dBase * dMult);
+
+  const totalScore = Math.min(100, Math.round(wSub + eSub + lSub + dSub));
+
+  let level = 'LOW';
+  if (totalScore >= 65) level = 'CRITICAL';
+  else if (totalScore >= 45) level = 'HIGH';
+  else if (totalScore >= 25) level = 'MEDIUM';
+
+  return {
+    wBase, wMult, wSub,
+    eBase, eMult, eSub,
+    lBase, lMult, lSub,
+    dBase, dMult, dSub,
+    totalScore,
+    level,
+    breakdownString: `W:${wBase}×${wMult}=${wSub} | E:${eBase}×${eMult}=${eSub} | L:${lBase}×${lMult}=${lSub} | D:${dBase}×${dMult}=${dSub}`
+  };
+}
+
+// Seed initial demo data
+function createInitialSeedData(){
+  const now = new Date();
+  const reqs = [
+    {
+      id: 'REQ-KLP-01',
+      createdAt: addDays(now, -4).toISOString(),
+      ownerId: 'OWNER-1', ownerName: 'ABC General Store', contact: '9825012345',
+      area: 'Kalupur', address: 'APMC Market Yard, Kalupur',
+      category: 'weighing', type: 'Electronic Platform Scale',
+      details: { manufacturer: 'Crown Scales', model: 'CS-50', serial: 'CR-50-9821', capacity: '50 kg' },
+      status: 'assigned', assignedRole: 'LMO', assignedId: 'LMO-018', certificateId: null,
+      riskParams: {
+        workload: { base: 18, mult: 1.20 },
+        expertise: { base: 12, mult: 1.00 },
+        location: { base: 18, mult: 1.50 },
+        duration: { base: 18, mult: 1.25 }
+      },
+      history: [
+        { ts: addDays(now, -4).toISOString(), event: 'Submitted by ABC General Store with risk parameters' },
+        { ts: addDays(now, -3).toISOString(), event: 'Admin assigned to LMO LMO-018' }
+      ]
+    },
+    {
+      id: 'REQ-VAT-01',
+      createdAt: addDays(now, -2).toISOString(),
+      ownerId: 'OWNER-2', ownerName: 'Patel Weighing Co.', contact: '9898011223',
+      area: 'Vatva GIDC', address: 'Plot 402, Phase IV, Vatva GIDC',
+      category: 'weighing', type: 'Electronic Weighbridge',
+      details: { manufacturer: 'Essae Weighing', model: 'WB-60T', serial: 'ES-60T-8819', capacity: '60 Tonne', platformSize: '16m x 3m', accuracyClass: 'Class III' },
+      status: 'assigned', assignedRole: 'GATC', assignedId: 'GATC-AHD-03', certificateId: null,
+      riskParams: {
+        workload: { base: 18, mult: 1.50 },
+        expertise: { base: 20, mult: 1.50 },
+        location: { base: 25, mult: 1.20 },
+        duration: { base: 12, mult: 1.25 }
+      },
+      history: [
+        { ts: addDays(now, -2).toISOString(), event: 'Submitted by Patel Weighing Co.' },
+        { ts: addDays(now, -1).toISOString(), event: 'Admin assigned to GATC GATC-AHD-03' }
+      ]
+    },
+    {
+      id: 'REQ-NVR-01',
+      createdAt: addDays(now, -1).toISOString(),
+      ownerId: 'OWNER-6', ownerName: 'Navrang Jewellers & Bullion', contact: '9824088990',
+      area: 'Navrangpura', address: 'C.G. Road, Navrangpura',
+      category: 'weighing', type: 'Price Computing Weighing Instrument',
+      details: { manufacturer: 'Mettler Toledo', model: 'JP-300', serial: 'MT-JP-9011', capacity: '6 kg' },
+      status: 'pending', assignedRole: null, assignedId: null, certificateId: null,
+      riskParams: {
+        workload: { base: 12, mult: 1.00 },
+        expertise: { base: 12, mult: 1.25 },
+        location: { base: 12, mult: 1.20 },
+        duration: { base: 5, mult: 1.00 }
+      },
+      history: [
+        { ts: addDays(now, -1).toISOString(), event: 'Submitted by Navrang Jewellers' }
+      ]
+    }
+  ];
+
+  return { requests: reqs, certificates: {}, anomalyReviews: {} };
+}
+
+// Storage adapter
+async function loadState(){
+  try {
+    if (window.storage && window.storage.get) {
+      const r = await window.storage.get('meira-shared-state', true);
+      if (r && r.value) {
+        const s = JSON.parse(r.value);
+        if (!s.anomalyReviews) s.anomalyReviews = {};
+        if (!s.requests || s.requests.length === 0) return createInitialSeedData();
+        return s;
+      }
+    }
+  } catch(e) {}
+  try {
+    const loc = localStorage.getItem('meira-shared-state');
+    if (loc) {
+      const s = JSON.parse(loc);
+      if (!s.anomalyReviews) s.anomalyReviews = {};
+      if (!s.requests || s.requests.length === 0) return createInitialSeedData();
+      return s;
+    }
+  } catch(e) {}
+  return createInitialSeedData();
+}
+async function saveState(){
+  try { if (window.storage && window.storage.set) await window.storage.set('meira-shared-state', JSON.stringify(state), true); } catch(e) {}
+  try { localStorage.setItem('meira-shared-state', JSON.stringify(state)); } catch(e) {}
+}
+
+function logHistory(req, event){
+  req.history.push({ ts: nowISO(), event });
+}
+
+function computeStatus(cert){
+  if (!cert) return null;
+  if (cert.revoked) return 'REVOKED';
+  if (new Date(cert.validUntil) < new Date()) return 'EXPIRED';
+  return 'VALID';
+}
+
+// Anomaly detection helpers
+function computeOfficerDailyCounts(){
+  const byOfficer = {};
+  Object.values(state.certificates).forEach(c => {
+    const officer = `${c.verifiedRole} ${c.verifiedId}`;
+    const day = dayKey(c.verifiedDate);
+    byOfficer[officer] = byOfficer[officer] || {};
+    byOfficer[officer][day] = (byOfficer[officer][day]||0) + 1;
+  });
+  return byOfficer;
+}
+function computeAnomalies(){
+  const byOfficer = computeOfficerDailyCounts();
+  const BASELINE = 20;
+  const anomalies = [];
+  Object.entries(byOfficer).forEach(([officer, days]) => {
+    const sortedDays = Object.keys(days).sort();
+    sortedDays.forEach((day, idx) => {
+      const priorDays = sortedDays.slice(Math.max(0, idx-30), idx);
+      const priorCounts = priorDays.map(d => days[d]);
+      const count = days[day];
+      let avg = null, flagged = false, reason = '';
+      if (priorCounts.length >= 3) {
+        avg = priorCounts.reduce((a,b)=>a+b,0) / priorCounts.length;
+        if (count > Math.max(avg*2.5, avg+8)) {
+          flagged = true;
+          reason = `${count} inspections vs officer trailing average of ${avg.toFixed(1)}/day`;
+        }
+      } else if (count > BASELINE) {
+        flagged = true;
+        reason = `${count} inspections in one day exceeds baseline of ${BASELINE}/day`;
+      }
+      if (flagged) anomalies.push({ officer, day, count, avg, reason, key:`${officer}__${day}` });
+    });
+  });
+  return anomalies.sort((a,b)=> b.day.localeCompare(a.day));
+}
+function simulateOfficerActivity(){
+  const officers = ACCOUNTS.filter(a => a.role==='LMO' || a.role==='GATC');
+  const td = new Date();
+  officers.forEach((officer, oi) => {
+    for (let d = 34; d >= 0; d--){
+      if (Math.random() < 0.3) continue;
+      let count = 8 + Math.floor(Math.random()*10);
+      if (oi === 0 && d === 4) count = 45;
+      const date = addDays(td, -d);
+      for (let k=0;k<count;k++){
+        const certId = `SIM-${officer.id}-${d}-${k}`;
+        const ts = new Date(date); ts.setHours(9 + Math.floor(Math.random()*8), Math.floor(Math.random()*60));
+        state.certificates[certId] = {
+          id: certId, synthetic: true,
+          type: 'Electronic Platform Scale', category: 'weighing',
+          details: { manufacturer:'Demo Tech', model:'DT-100', serial:'SIM'+Math.floor(Math.random()*99999) },
+          ownerId: 'SIM-OWNER', ownerName: 'Simulated Business', area: 'Kalupur',
+          verifiedRole: officer.role, verifiedId: officer.id,
+          verifiedDate: ts.toISOString(), validUntil: addDays(ts,365).toISOString(),
+          gps: '23.0225° N, 72.5714° E', evidenceHash: 'SIMDATA7788', revoked: false
+        };
+      }
+    }
+  });
+}
+function clearSimulatedActivity(){
+  Object.keys(state.certificates).forEach(id => { if (id.startsWith('SIM-')) delete state.certificates[id]; });
+}
+
+// ---------- RENDER HELPERS ----------
+function el(html){ const d = document.createElement('div'); d.innerHTML = html; return d.firstElementChild; }
+
+function badgeForStatus(s){
+  const map = { pending:'grey', assigned:'warn', in_progress:'warn', completed:'valid', rejected:'crit' };
+  const labelMap = { pending:'PENDING', assigned:'ASSIGNED', in_progress:'IN PROGRESS', completed:'COMPLETED', rejected:'REJECTED' };
+  return `<span class="badge ${map[s]||'grey'}">${labelMap[s]||s.toUpperCase()}</span>`;
+}
+function badgeForCert(s){
+  const map = { VALID:'valid', EXPIRED:'warn', REVOKED:'crit' };
+  return `<span class="badge ${map[s]||'grey'}">${s}</span>`;
+}
+function badgeForRisk(level){
+  const map = { LOW:'grey', MEDIUM:'warn', HIGH:'warn', CRITICAL:'crit' };
+  return `<span class="badge ${map[level]||'grey'}">${level}</span>`;
+}
+
+function govChrome(){
+  return `
+  <div class="tricolor"><div class="saffron"></div><div class="white"></div><div class="green"></div></div>
+  <div class="govbar">
+    <span><a>${t('gov_skip')}</a> &nbsp;|&nbsp; <a>${t('gov_screen_reader')}</a></span>
+    <span>
+      <a class="lang-btn ${currentLang==='en'?'active-lang':''}" data-setlang="en">English</a> &nbsp;|&nbsp;
+      <a class="lang-btn ${currentLang==='hi'?'active-lang':''}" data-setlang="hi">हिन्दी</a> &nbsp;|&nbsp;
+      <a class="lang-btn ${currentLang==='gu'?'active-lang':''}" data-setlang="gu">ગુજરાતી</a>
+    </span>
+  </div>`;
+}
+
+function topbar(){
+  const roleLabel = session ? `${session.label}` : '';
+  return govChrome() + `
+  <div class="topbar">
+    <div class="brand">
+      <div class="emblem"></div>
+      <div class="brand-mark">M</div>
+      <div>
+        <div style="font-weight:bold;font-size:16px;letter-spacing:0;color:var(--ink);">MEIRA</div>
+        <div style="font-size:9.5px;color:var(--ink-soft);letter-spacing:0.02em;">${t('brand_sub')}</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      ${session ? `<div style="text-align:right;"><div style="font-size:11.5px;font-weight:bold;">${roleLabel}</div><div style="font-size:9.5px;color:var(--ink-soft);">${t('role')}: ${session.role}</div></div>
+      <button class="btn ghost" id="logoutBtn">${t('logout')}</button>` : ''}
+    </div>
+  </div>`;
+}
+
+function wireGlobalEvents(root){
+  root.querySelectorAll('[data-setlang]').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentLang = b.getAttribute('data-setlang');
+      try { localStorage.setItem('meira_lang', currentLang); } catch(err){}
+      render();
+    });
+  });
+  const lg = root.querySelector('#logoutBtn');
+  if (lg) lg.onclick = () => { session = null; view = 'login'; ctx = {}; render(); };
+}
+
+function tabs(items, activeKey){
+  return `<div class="tabs">${items.map(it => `<div class="tab ${it.key===activeKey?'active':''}" data-tab="${it.key}">${it.label}</div>`).join('')}</div>`;
+}
+
+// ---------- LOGIN VIEW ----------
+function renderLogin(root){
+  root.innerHTML = govChrome() + `
+  <div class="topbar">
+    <div class="brand">
+      <div class="emblem"></div>
+      <div class="brand-mark">M</div>
+      <div>
+        <div style="font-weight:bold;font-size:16px;color:var(--ink);">MEIRA</div>
+        <div style="font-size:9.5px;color:var(--ink-soft);">${t('brand_sub')}</div>
+      </div>
+    </div>
+    <div class="stamp" style="color:var(--brick);">${t('proto_stamp')}</div>
+  </div>
+  <div class="container">
+    <div class="login-shell">
+      <div style="margin-bottom:18px;">
+        <h2 style="font-size:19px;">${t('signin')}</h2>
+        <div style="font-size:11.5px;color:var(--ink-soft);margin-top:5px;">${t('signin_desc')}</div>
+      </div>
+      <div class="role-pick" id="rolePick">
+        ${['ADMIN','LMO','GATC','OWNER'].map(r => `<div class="role-btn" data-role="${r}">
+          <div class="rt">${t('role_'+r.toLowerCase())}</div>
+          <div class="rs">${t('role_'+r.toLowerCase()+'_sub')}</div>
+        </div>`).join('')}
+      </div>
+      <div class="divider"></div>
+      <button class="btn ghost" id="publicBtn" style="width:100%;border:1px solid var(--ink);">${t('public_btn')}</button>
+      <div id="loginFormWrap" style="margin-top:16px;"></div>
+    </div>
+  </div>`;
+
+  wireGlobalEvents(root);
+  root.querySelectorAll('[data-role]').forEach(b => b.addEventListener('click', () => {
+    ctx.pickedRole = b.getAttribute('data-role');
+    renderLoginForm(root);
+  }));
+  root.querySelector('#publicBtn').addEventListener('click', () => { 
+    session = { role:'PUBLIC', id:null, label:'Public Citizen' }; 
+    view='public'; 
+    ctx={}; 
+    render(); 
+  });
+}
+
+function renderLoginForm(root){
+  const wrap = root.querySelector('#loginFormWrap');
+  const accts = ACCOUNTS.filter(a => a.role === ctx.pickedRole);
+  wrap.innerHTML = `
+    <div class="card">
+      <div style="font-size:11px;color:var(--ink-soft);margin-bottom:10px;">${t('demo_accounts')} — ${ctx.pickedRole}</div>
+      ${accts.map(a=>`<div style="font-size:10.5px;color:var(--ink-soft);margin-bottom:3px;"><code>${a.email}</code> / <code>${a.pass}</code> — <em>${a.label}</em></div>`).join('')}
+      <div class="divider"></div>
+      <div class="field"><label>${t('email')}</label><input id="loginEmail" placeholder="you@meira.demo" value="${accts[0]?.email||''}"/></div>
+      <div class="field"><label>${t('password')}</label><input id="loginPass" type="password" placeholder="••••••" value="${accts[0]?.pass||''}"/></div>
+      <div id="loginErr"></div>
+      <button class="btn" id="doLogin" style="width:100%;margin-top:6px;">${t('login_btn')}</button>
+    </div>`;
+  wrap.querySelector('#doLogin').addEventListener('click', () => {
+    const email = wrap.querySelector('#loginEmail').value.trim().toLowerCase();
+    const pass = wrap.querySelector('#loginPass').value;
+    const found = ACCOUNTS.find(a => a.email === email && a.pass === pass && a.role === ctx.pickedRole);
+    if (!found) {
+      wrap.querySelector('#loginErr').innerHTML = `<div class="msg err">${t('invalid_creds')}</div>`;
+      return;
+    }
+    session = { role: found.role, id: found.id, label: found.label };
+    ctx = {};
+    view = found.role.toLowerCase();
+    render();
+  });
+}
+
+// ---------- OWNER VIEW & APPLICATION FORM WITH 4 RISK PARAMETERS & MULTIPLIERS ----------
+function requestFormHTML(){
+  return `
+  <div class="card">
+    <h3 style="font-size:15px;margin-bottom:12px;">${t('form_title')}</h3>
+    
+    <!-- Basic Business Details -->
+    <div class="row">
+      <div class="field">
+        <label>${t('lbl_biz_name')}</label>
+        <input id="f_owner" value="${session.role==='OWNER'?session.label:''}" placeholder="e.g. Patel Traders"/>
+        <div class="field-error" id="err_owner" style="display:none;"></div>
+      </div>
+      <div class="field">
+        <label>${t('lbl_contact')}</label>
+        <input id="f_contact" maxlength="10" placeholder="e.g. 9876543210"/>
+        <div class="field-error" id="err_contact" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Location Section with Ahmedabad Presets -->
+    <div class="row">
+      <div class="field">
+        <label>${t('lbl_area')}</label>
+        <input id="f_area" placeholder="Select region chip or type area..."/>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;">
+          ${AHMEDABAD_REGIONS.map(r => `<button type="button" class="chip-btn" data-chip="${r}">${r}</button>`).join('')}
+        </div>
+        <div class="field-error" id="err_area" style="display:none;"></div>
+      </div>
+      <div class="field">
+        <label>${t('lbl_address')}</label>
+        <input id="f_address" placeholder="Shop / Plot no., street, city"/>
+        <div class="field-error" id="err_address" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Instrument Details -->
+    <div class="row">
+      <div class="field">
+        <label>${t('lbl_category')}</label>
+        <select id="f_category">
+          <option value="weighing">Weighing Machine</option>
+          <option value="volume">Volume Machine</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>${t('lbl_type')}</label>
+        <select id="f_type"></select>
+      </div>
+    </div>
+    <div id="f_dynamicFields" class="row"></div>
+
+    <div class="divider"></div>
+
+    <!-- Explicit 4 Parameters of Risk with Individual Multipliers -->
+    <div style="margin-bottom:12px;">
+      <div style="font-weight:bold;font-size:12.5px;color:var(--ink);">${t('risk_params_title')}</div>
+      <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">${t('risk_params_sub')}</div>
+    </div>
+
+    <div class="row">
+      <!-- 1. Workload Parameter -->
+      <div class="field param-box">
+        <div class="param-header">
+          <span>1. Workload (W)</span>
+          <span class="stamp" id="w_sub_badge">14 pts</span>
+        </div>
+        <div style="margin-bottom:6px;">
+          <label style="font-size:9.5px;">Operational Workload Level</label>
+          <select id="p_workload_base">
+            <option value="5">Low / Light Retail (Base: 5 pts)</option>
+            <option value="12" selected>Moderate Commercial (Base: 12 pts)</option>
+            <option value="18">High Volume Wholesale (Base: 18 pts)</option>
+            <option value="25">Continuous Heavy 24/7 Loading (Base: 25 pts)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:9.5px;">Workload Multiplier (Mw)</label>
+          <select id="p_workload_mult">
+            <option value="1.00">1.00x (Standard Load)</option>
+            <option value="1.20" selected>1.20x (Peak Business Hours)</option>
+            <option value="1.50">1.50x (Severe Shift Backlog)</option>
+            <option value="2.00">2.00x (Extreme Saturation)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 2. Expertise Parameter -->
+      <div class="field param-box">
+        <div class="param-header">
+          <span>2. Expertise (E)</span>
+          <span class="stamp" id="e_sub_badge">15 pts</span>
+        </div>
+        <div style="margin-bottom:6px;">
+          <label style="font-size:9.5px;">Technical Complexity Level</label>
+          <select id="p_expertise_base">
+            <option value="5">Standard Class III Scale (Base: 5 pts)</option>
+            <option value="12" selected>Price-Computing Scale (Base: 12 pts)</option>
+            <option value="20">Heavy Industrial Weighbridge (Base: 20 pts)</option>
+            <option value="25">High-Pressure Fluid/Gas Meter (Base: 25 pts)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:9.5px;">Expertise Multiplier (Me)</label>
+          <select id="p_expertise_mult">
+            <option value="1.00">1.00x (Routine Field Standard)</option>
+            <option value="1.25" selected>1.25x (Specialized Rig Required)</option>
+            <option value="1.50">1.50x (GATC Lab Calibration Rig)</option>
+            <option value="2.00">2.00x (High-Precision / Toxic Standard)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- 3. Location Parameter -->
+      <div class="field param-box">
+        <div class="param-header">
+          <span>3. Location (L)</span>
+          <span class="stamp" id="l_sub_badge">14 pts</span>
+        </div>
+        <div style="margin-bottom:6px;">
+          <label style="font-size:9.5px;">Commercial Market Exposure</label>
+          <select id="p_location_base">
+            <option value="5">Suburban Retail Corridor (Base: 5 pts)</option>
+            <option value="12" selected>Commercial Transit Market (Base: 12 pts)</option>
+            <option value="18">Wholesale Commodity APMC Hub (Base: 18 pts)</option>
+            <option value="25">Heavy Chemical/Industrial GIDC (Base: 25 pts)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:9.5px;">Location Multiplier (Ml)</label>
+          <select id="p_location_mult">
+            <option value="1.00">1.00x (Standard Compliance Zone)</option>
+            <option value="1.20" selected>1.20x (High Transaction Velocity)</option>
+            <option value="1.50">1.50x (Commercial Dispute Sensitivity)</option>
+            <option value="1.80">1.80x (Massive APMC Trading Volume)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 4. Duration of Work Parameter -->
+      <div class="field param-box">
+        <div class="param-header">
+          <span>4. Duration of Work (D)</span>
+          <span class="stamp" id="d_sub_badge">15 pts</span>
+        </div>
+        <div style="margin-bottom:6px;">
+          <label style="font-size:9.5px;">Inspection Turnaround / SLA Window</label>
+          <select id="p_duration_base">
+            <option value="5">Standard Inspection (7-10 Days) (Base: 5 pts)</option>
+            <option value="12" selected>Expedited Window (3-5 Days) (Base: 12 pts)</option>
+            <option value="18">Priority Urgent (24-48 Hours) (Base: 18 pts)</option>
+            <option value="25">Emergency Same-Day (12 Hours) (Base: 25 pts)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:9.5px;">Duration Multiplier (Md)</label>
+          <select id="p_duration_mult">
+            <option value="1.00">1.00x (Normal Queue Velocity)</option>
+            <option value="1.25" selected>1.25x (Accelerated SLA)</option>
+            <option value="1.50">1.50x (Production Shutdown Risk)</option>
+            <option value="2.00">2.00x (Immediate Trading Latency)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Calculated Risk Preview -->
+    <div class="card" style="background:#F6F8FA;border-left:4px solid var(--ink);margin:10px 0 16px 0;padding:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:11.5px;font-weight:bold;color:var(--ink);">Actual Risk Calculation:</div>
+          <div id="riskFormulaPreview" style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
+            (12×1.20) + (12×1.25) + (12×1.20) + (12×1.25) = 14 + 15 + 14 + 15 = <strong>58 / 100 Points</strong>
+          </div>
+        </div>
+        <div id="riskTotalBadge">
+          <span class="badge warn" style="font-size:12px;padding:4px 10px;">58 / 100 · HIGH</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="f_err"></div>
+    <button class="btn" id="f_submit">${t('btn_submit_req')}</button>
+  </div>`;
+}
+
+function wireRequestForm(root, onSubmitted){
+  const catSel = root.querySelector('#f_category');
+  const typeSel = root.querySelector('#f_type');
+  const dyn = root.querySelector('#f_dynamicFields');
+  const contactInp = root.querySelector('#f_contact');
+  const areaInp = root.querySelector('#f_area');
+
+  contactInp.addEventListener('input', () => {
+    contactInp.value = contactInp.value.replace(/\D/g, '').slice(0, 10);
+  });
+
+  root.querySelectorAll('[data-chip]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      areaInp.value = chip.getAttribute('data-chip');
+    });
+  });
+
+  function fillTypes(){
+    const cat = catSel.value;
+    typeSel.innerHTML = Object.keys(INSTRUMENT_TYPES[cat].types).map(t=>`<option value="${t}">${t}</option>`).join('');
+    fillDynamic();
+  }
+  function fillDynamic(){
+    const cat = catSel.value, type = typeSel.value;
+    const fields = INSTRUMENT_TYPES[cat].types[type] || [];
+    dyn.innerHTML = fields.map(f => {
+      const placeholder = f==='capacity' ? 'e.g. 50 kg' : f==='serial' ? 'e.g. AHD-2026-WM01' : f==='manufacturer' ? 'e.g. Eagle Scale Co.' : getFieldLabel(f);
+      return `<div class="field">
+        <label>${getFieldLabel(f)} *</label>
+        <input data-f="${f}" id="f_dyn_${f}" placeholder="${placeholder}"/>
+        <div class="field-error" id="err_dyn_${f}" style="display:none;"></div>
+      </div>`;
+    }).join('');
+  }
+  catSel.addEventListener('change', fillTypes);
+  typeSel.addEventListener('change', fillDynamic);
+  fillTypes();
+
+  // Dynamic risk calculation preview
+  function updateRiskCalcPreview(){
+    const wB = parseFloat(root.querySelector('#p_workload_base').value) || 12;
+    const wM = parseFloat(root.querySelector('#p_workload_mult').value) || 1.20;
+
+    const eB = parseFloat(root.querySelector('#p_expertise_base').value) || 12;
+    const eM = parseFloat(root.querySelector('#p_expertise_mult').value) || 1.25;
+
+    const lB = parseFloat(root.querySelector('#p_location_base').value) || 12;
+    const lM = parseFloat(root.querySelector('#p_location_mult').value) || 1.20;
+
+    const dB = parseFloat(root.querySelector('#p_duration_base').value) || 12;
+    const dM = parseFloat(root.querySelector('#p_duration_mult').value) || 1.25;
+
+    const wSub = Math.round(wB * wM);
+    const eSub = Math.round(eB * eM);
+    const lSub = Math.round(lB * lM);
+    const dSub = Math.round(dB * dM);
+
+    const total = Math.min(100, Math.round(wSub + eSub + lSub + dSub));
+
+    root.querySelector('#w_sub_badge').innerText = `${wSub} pts`;
+    root.querySelector('#e_sub_badge').innerText = `${eSub} pts`;
+    root.querySelector('#l_sub_badge').innerText = `${lSub} pts`;
+    root.querySelector('#d_sub_badge').innerText = `${dSub} pts`;
+
+    let level = 'LOW';
+    let badgeClass = 'valid';
+    if (total >= 65) { level = 'CRITICAL'; badgeClass = 'crit'; }
+    else if (total >= 45) { level = 'HIGH'; badgeClass = 'warn'; }
+    else if (total >= 25) { level = 'MEDIUM'; badgeClass = 'warn'; }
+
+    root.querySelector('#riskFormulaPreview').innerHTML = `
+      (${wB} × ${wM.toFixed(2)}) + (${eB} × ${eM.toFixed(2)}) + (${lB} × ${lM.toFixed(2)}) + (${dB} × ${dM.toFixed(2)}) = ${wSub} + ${eSub} + ${lSub} + ${dSub} = <strong>${total} / 100 Points</strong>
+    `;
+    root.querySelector('#riskTotalBadge').innerHTML = `
+      <span class="badge ${badgeClass}" style="font-size:12px;padding:4px 10px;">${total} / 100 · ${level}</span>
+    `;
+
+    return {
+      workload: { base: wB, mult: wM, sub: wSub },
+      expertise: { base: eB, mult: eM, sub: eSub },
+      location: { base: lB, mult: lM, sub: lSub },
+      duration: { base: dB, mult: dM, sub: dSub },
+      totalScore: total,
+      level
+    };
+  }
+
+  ['#p_workload_base','#p_workload_mult','#p_expertise_base','#p_expertise_mult','#p_location_base','#p_location_mult','#p_duration_base','#p_duration_mult'].forEach(id => {
+    root.querySelector(id)?.addEventListener('change', updateRiskCalcPreview);
+  });
+  updateRiskCalcPreview();
+
+  root.querySelector('#f_submit').addEventListener('click', async () => {
+    let hasError = false;
+    function setFieldErr(id, msg){
+      const errEl = root.querySelector('#' + id);
+      const inp = root.querySelector('#' + id.replace('err_', ''));
+      if (errEl) {
+        if (msg) {
+          errEl.innerText = msg; errEl.style.display = 'block';
+          if (inp) inp.classList.add('is-invalid');
+          hasError = true;
+        } else {
+          errEl.style.display = 'none';
+          if (inp) inp.classList.remove('is-invalid');
+        }
+      }
+    }
+
+    const owner = root.querySelector('#f_owner').value.trim();
+    const contact = contactInp.value.trim();
+    const area = areaInp.value.trim();
+    const address = root.querySelector('#f_address').value.trim();
+    const category = catSel.value;
+    const type = typeSel.value;
+
+    if (!owner || owner.length < 3) setFieldErr('err_owner', t('err_biz_name'));
+    else setFieldErr('err_owner', null);
+
+    if (!contact || !/^\d{10}$/.test(contact)) setFieldErr('err_contact', t('err_contact'));
+    else setFieldErr('err_contact', null);
+
+    if (!area || area.length < 2) setFieldErr('err_area', t('err_area'));
+    else setFieldErr('err_area', null);
+
+    if (!address || address.length < 5) setFieldErr('err_address', t('err_address'));
+    else setFieldErr('err_address', null);
+
+    const details = {};
+    dyn.querySelectorAll('[data-f]').forEach(inp => {
+      const f = inp.getAttribute('data-f');
+      const val = inp.value.trim();
+      details[f] = val;
+      const errId = `err_dyn_${f}`;
+
+      if (f === 'manufacturer') {
+        if (!val || val.length < 2) setFieldErr(errId, t('err_mfg'));
+        else setFieldErr(errId, null);
+      } else if (f === 'model') {
+        if (!val || val.length < 2) setFieldErr(errId, t('err_model'));
+        else setFieldErr(errId, null);
+      } else if (f === 'serial') {
+        if (!val || val.length < 3 || !/^[A-Za-z0-9\-_/]+$/.test(val)) setFieldErr(errId, t('err_serial'));
+        else setFieldErr(errId, null);
+      } else if (f === 'capacity') {
+        const numPart = parseFloat(val);
+        if (!val || isNaN(numPart) || numPart <= 0) setFieldErr(errId, t('err_capacity'));
+        else setFieldErr(errId, null);
+      } else if (f === 'flowRate') {
+        if (!val || val.length < 2) setFieldErr(errId, t('err_flow_rate'));
+        else setFieldErr(errId, null);
+      } else if (f === 'platformSize') {
+        if (!val || val.length < 2) setFieldErr(errId, t('err_platform_size'));
+        else setFieldErr(errId, null);
+      } else {
+        if (!val) setFieldErr(errId, `${getFieldLabel(f)} is required.`);
+        else setFieldErr(errId, null);
+      }
+    });
+
+    if (hasError) {
+      root.querySelector('#f_err').innerHTML = `<div class="msg err">${t('err_generic_fix')}</div>`;
+      return;
+    }
+
+    const calculatedRisk = updateRiskCalcPreview();
+
+    const req = {
+      id: uid('REQ'),
+      createdAt: nowISO(),
+      ownerId: session.role==='OWNER' ? session.id : uid('OWN'),
+      ownerName: owner, contact, area, address,
+      category, type, details,
+      status: 'pending',
+      assignedRole: null, assignedId: null,
+      certificateId: null,
+      riskParams: calculatedRisk,
+      history: []
+    };
+    logHistory(req, `Request submitted by ${owner} in ${area} (Risk: ${calculatedRisk.totalScore} pts)`);
+    state.requests.unshift(req);
+    await saveState();
+    onSubmitted(req);
+  });
+}
+
+function renderOwner(root){
+  ctx.tab = ctx.tab || 'new';
+  root.innerHTML = topbar() + `<div class="container">
+    <h2 style="font-size:18px;margin-bottom:14px;">${t('owner_portal')} — ${session.label}</h2>
+    ${tabs([
+      {key:'new',label:t('tab_new_req')},
+      {key:'mine',label:t('tab_my_reqs')},
+      {key:'certs',label:t('tab_my_certs')},
+      {key:'history',label:t('tab_history')}
+    ], ctx.tab)}
+    <div id="ownerBody"></div>
+  </div>`;
+  wireGlobalEvents(root);
+  root.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => { ctx.tab = t.getAttribute('data-tab'); renderOwner(root); }));
+  const body = root.querySelector('#ownerBody');
+
+  if (ctx.tab === 'new') {
+    body.innerHTML = requestFormHTML();
+    wireRequestForm(body, (req) => { 
+      ctx.tab='mine'; 
+      ctx.msg = `Request ${req.id} submitted successfully! Region: ${req.area}. Operational Risk: ${req.riskParams.totalScore}/100. Legal Metrology Command Centre will prioritize and assign.`; 
+      renderOwner(root); 
+    });
+  }
+  else if (ctx.tab === 'mine') {
+    const mine = state.requests.filter(r => r.ownerId === session.id || r.ownerName === session.label);
+    body.innerHTML = (ctx.msg ? `<div class="msg ok">${ctx.msg}</div>` : '') + `
+      <table><thead><tr><th>${t('th_req')}</th><th>${t('th_inst')}</th><th>Risk Score</th><th>Audit Status</th><th>${t('th_status')}</th><th>${t('th_assigned')}</th><th>Details</th></tr></thead>
+      <tbody>${mine.length ? mine.map(r => {
+        const risk = calculateParametricRisk(r);
+        let auditBadge = `<span class="badge grey">Pending Audit</span>`;
+        if (r.fine) {
+          auditBadge = `<span class="badge crit">FINED ₹${(r.fine.fineAmount||5000).toLocaleString('en-IN')}</span>`;
+        } else if (r.riskAudit && r.riskAudit.status === 'VERIFIED_LEGIT') {
+          auditBadge = `<span class="badge valid">✓ Risk Legit</span>`;
+        }
+        return `<tr>
+          <td><strong>${r.id}</strong></td>
+          <td>${r.type}<div style="font-size:10px;color:var(--ink-soft);">S/N: ${r.details.serial||'—'} · ${r.area}</div></td>
+          <td>${badgeForRisk(risk.level)} <strong style="font-size:11.5px;">${risk.totalScore} pts</strong></td>
+          <td>${auditBadge}</td>
+          <td>${badgeForStatus(r.status)}</td>
+          <td>${r.assignedRole? r.assignedRole+' '+r.assignedId : '—'}</td>
+          <td>
+            ${r.status==='rejected' ? `<button class="btn brick" style="font-size:10.5px;padding:4px 8px;" data-view-rej="${r.id}">View Rejection Memo</button>` : ''}
+            ${r.status==='completed' ? `<button class="btn ghost" style="border:1px solid var(--ink);font-size:10.5px;padding:4px 8px;" data-view-cert="${r.certificateId}">View Cert</button>` : ''}
+            ${r.status==='pending' || r.status==='assigned' ? `<span style="font-size:10.5px;color:var(--ink-soft);">Under Review</span>` : ''}
+          </td>
+        </tr>`;
+      }).join('') : `<tr><td colspan="7" style="color:var(--ink-soft);">No requests yet. Submit one from "New Request".</td></tr>`}</tbody></table>
+      
+      <!-- Fines Section if any active fines on user requests -->
+      ${mine.filter(r => r.fine).map(r => `
+        <div class="fine-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div style="font-weight:bold;color:var(--brick);font-size:13px;">${t('fine_banner_title')}</div>
+            <span class="stamp" style="color:var(--brick);">${r.fine.paymentStatus==='PAID'?t('fine_paid_badge'):'PAYMENT PENDING'}</span>
+          </div>
+          <div style="font-size:11px;color:var(--ink-soft);margin-top:4px;">
+            Application ID: <strong>${r.id}</strong> | Notice No: <strong>${r.fine.noticeNo}</strong> | Issued by: <strong>${r.assignedRole} ${r.assignedId}</strong> on ${fmtDate(r.fine.ts)}
+          </div>
+          <div style="font-size:12px;color:#333;margin:8px 0;background:#fff;border:1px solid #E8B4B4;padding:8px 10px;border-radius:3px;">
+            <strong>Statutory Discrepancy Findings:</strong> ${r.fine.reason}
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <div class="fine-amount">Statutory Penalty: ₹${(r.fine.fineAmount||5000).toLocaleString('en-IN')}</div>
+            ${r.fine.paymentStatus!=='PAID' ? `
+              <button class="btn brick" data-pay-fine="${r.id}" style="font-size:11px;padding:6px 14px;">${t('fine_pay_btn')}</button>
+            ` : `
+              <span class="badge valid" style="padding:4px 10px;font-size:11px;">✓ REMITTED VIA CYBER TREASURY (GRN: ${r.fine.grn||'GRN-781920'})</span>
+            `}
+          </div>
+        </div>
+      `).join('')}
+
+      <div id="ownerDetailSlot" style="margin-top:16px;"></div>`;
+    ctx.msg = null;
+
+    body.querySelectorAll('[data-pay-fine]').forEach(b => b.addEventListener('click', async () => {
+      const reqId = b.getAttribute('data-pay-fine');
+      const targetReq = state.requests.find(r => r.id === reqId);
+      if (targetReq && targetReq.fine) {
+        targetReq.fine.paymentStatus = 'PAID';
+        targetReq.fine.grn = 'GRN-' + Math.floor(100000 + Math.random()*900000);
+        targetReq.fine.paidAt = nowISO();
+        logHistory(targetReq, `Applicant remitted statutory penalty of ₹${targetReq.fine.fineAmount||5000} via Cyber Treasury e-Challan (GRN: ${targetReq.fine.grn})`);
+        await saveState();
+        ctx.msg = `Statutory Fine of ₹${(targetReq.fine.fineAmount||5000).toLocaleString('en-IN')} remitted successfully. Receipt GRN: ${targetReq.fine.grn}. Compliance updated.`;
+        renderOwner(root);
+      }
+    }));
+
+    body.querySelectorAll('[data-view-rej]').forEach(b => b.addEventListener('click', () => {
+      const r = mine.find(x => x.id === b.getAttribute('data-view-rej'));
+      if (r && r.rejection) {
+        body.querySelector('#ownerDetailSlot').innerHTML = rejectionMemoHTML(r, r.rejection);
+      }
+    }));
+    body.querySelectorAll('[data-view-cert]').forEach(b => b.addEventListener('click', () => {
+      const c = state.certificates[b.getAttribute('data-view-cert')];
+      if (c) {
+        body.querySelector('#ownerDetailSlot').innerHTML = certCardHTML(c, false);
+        wireCertQrButtons(body.querySelector('#ownerDetailSlot'));
+      }
+    }));
+  }
+  else if (ctx.tab === 'certs') {
+    const mine = Object.values(state.certificates).filter(c => (c.ownerId === session.id || c.ownerName === session.label) && !c.synthetic);
+    body.innerHTML = mine.length ? mine.map(c => certCardHTML(c, true)).join('<div class="divider"></div>') : `<div style="color:var(--ink-soft);">No certificates issued yet.</div>`;
+    wireCertQrButtons(body);
+    body.querySelectorAll('[data-transfer]').forEach(b=>b.addEventListener('click',()=>{ ctx.transferCert = b.getAttribute('data-transfer'); renderOwner(root); }));
+    if (ctx.transferCert) renderTransferPanel(body, ctx.transferCert, () => { ctx.transferCert=null; renderOwner(root); });
+  }
+  else if (ctx.tab === 'history') {
+    const mine = state.requests.filter(r => r.ownerId === session.id || r.ownerName === session.label);
+    body.innerHTML = mine.length ? mine.map(r => historyBlockHTML(r)).join('<div class="divider"></div>') : `<div style="color:var(--ink-soft);">No history yet.</div>`;
+  }
+}
+
+function certCardHTML(c, showTransfer){
+  const status = computeStatus(c);
+  return `<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-family: Verdana, Arial, sans-serif;font-weight:700;font-size:13.5px;color:var(--ink);">LEGAL METROLOGY VERIFICATION CERTIFICATE</div>
+        <div style="font-size:10.5px;color:var(--ink-soft);">Certificate ID: <strong>${c.id}</strong></div>
+      </div>
+      ${badgeForCert(status)}
+    </div>
+    <div class="divider"></div>
+    <div class="kv">
+      <div>Instrument</div><div>${c.type}</div>
+      <div>Owner / Business</div><div>${c.ownerName}</div>
+      <div>Location / Region</div><div>${c.area}</div>
+      <div>Manufacturer</div><div>${c.details.manufacturer||'—'}</div>
+      <div>Model</div><div>${c.details.model||'—'}</div>
+      <div>Serial No.</div><div>${c.details.serial||'—'}</div>
+      <div>Verified By</div><div>${c.verifiedRole} ${c.verifiedId}</div>
+      <div>Verified Date</div><div>${fmtDate(c.verifiedDate)}</div>
+      <div>Valid Until</div><div>${fmtDate(c.validUntil)}</div>
+      <div>Standard / Measured</div><div>${c.declared ? c.declared + ' / ' + c.measured : 'Standard Inspection'}</div>
+      <div>Risk Audit Status</div><div>${c.riskAudit?.status==='VERIFIED_LEGIT' ? '<strong style="color:var(--moss);">✓ Customer Risk Score Certified Legit</strong>' : c.riskAudit?.status==='MISDECLARED_FINED' ? '<strong style="color:var(--brick);">⚠️ Misdeclared Risk Score (Fined ₹5,000)</strong>' : 'Standard Clearance'}</div>
+      <div>Evidence Hash</div><div><code>${c.evidenceHash}</code></div>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn ghost" style="border:1px solid var(--ink);" data-viewqr="${c.id}">View QR Code</button>
+      ${showTransfer ? `<button class="btn ghost" style="border:1px solid var(--ink);" data-transfer="${c.id}">Transfer Ownership / Migrate</button>` : ''}
+    </div>
+    <div id="qrslot-${c.id}" style="margin-top:10px;"></div>
+  </div>`;
+}
+
+function wireCertQrButtons(container){
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-viewqr]');
+    if (!btn) return;
+    const id = btn.getAttribute('data-viewqr');
+    const slot = container.querySelector(`#qrslot-${CSS.escape(id)}`);
+    if (!slot) return;
+    if (slot.dataset.filled === '1') { slot.innerHTML = ''; slot.dataset.filled = '0'; return; }
+    const box = document.createElement('div');
+    box.className = 'qr-box';
+    slot.innerHTML = ''; slot.appendChild(box);
+    drawPseudoQR(box, `MEIRA-CERT:${id}`, 130);
+    slot.dataset.filled = '1';
+  });
+}
+
+function renderTransferPanel(body, certId, onDone){
+  const panel = el(`<div class="card" style="margin-top:12px;border-left:3px solid var(--moss);">
+    <div style="font-size:12px;font-weight:bold;margin-bottom:8px;">Transfer Instrument to New Owner / Migrate Location</div>
+    <div class="row">
+      <div class="field"><label>New Owner Name</label><input id="t_owner" placeholder="e.g. Shreenathji Traders"/></div>
+      <div class="field"><label>New Area / Location</label><input id="t_area" placeholder="e.g. Maninagar, Ahmedabad"/></div>
+    </div>
+    <button class="btn moss" id="t_submit">Confirm Migration</button>
+  </div>`);
+  body.appendChild(panel);
+  panel.querySelector('#t_submit').addEventListener('click', async () => {
+    const newOwner = panel.querySelector('#t_owner').value.trim();
+    const newArea = panel.querySelector('#t_area').value.trim();
+    if (!newOwner || !newArea) return;
+    const c = state.certificates[certId];
+    const oldOwner = c.ownerName, oldArea = c.area;
+    c.ownerName = newOwner; c.area = newArea;
+    c.migrationLog = c.migrationLog || [];
+    c.migrationLog.push({ ts: nowISO(), from: `${oldOwner} · ${oldArea}`, to: `${newOwner} · ${newArea}` });
+    await saveState();
+    onDone();
+  });
+}
+
+function historyBlockHTML(r){
+  return `<div class="card" style="margin-bottom:10px;">
+    <div style="font-weight:bold;font-size:12.5px;color:var(--ink);">${r.id} — ${r.type} <span style="color:var(--ink-soft);font-weight:400;">(${r.ownerName} · ${r.area})</span></div>
+    <div style="margin-top:8px;">
+      ${r.history.map(h => `<div class="hist-item"><div>${h.event}</div><div class="t">${fmtDate(h.ts)} ${new Date(h.ts).toLocaleTimeString()}</div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ---------- ADMIN VIEW (INDIVIDUAL MULTIPLIERS & RISK TABLE) ----------
+function renderAdmin(root){
+  ctx.tab = ctx.tab || 'overview';
+  root.innerHTML = topbar() + `<div class="container">
+    <h2 style="font-size:18px;margin-bottom:14px;">${t('cmd_centre')}</h2>
+    ${tabs([
+      {key:'overview',label:t('tab_overview')},
+      {key:'incoming',label:t('tab_incoming')},
+      {key:'certs',label:t('tab_certs')},
+      {key:'anomaly',label:t('tab_anomaly')},
+      {key:'audit',label:t('tab_audit')}
+    ], ctx.tab)}
+    <div id="adminBody"></div>
+  </div>`;
+  wireGlobalEvents(root);
+  root.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => { ctx.tab = t.getAttribute('data-tab'); renderAdmin(root); }));
+  const body = root.querySelector('#adminBody');
+
+  const total = state.requests.length;
+  const pending = state.requests.filter(r=>r.status==='pending').length;
+  const assigned = state.requests.filter(r=>r.status==='assigned'||r.status==='in_progress').length;
+  const completed = state.requests.filter(r=>r.status==='completed').length;
+  const certs = Object.values(state.certificates).filter(c=>!c.synthetic);
+  const valid = certs.filter(c=>computeStatus(c)==='VALID').length;
+  const expired = certs.filter(c=>computeStatus(c)==='EXPIRED').length;
+  const serialFlags = state.requests.filter(r => r.history.some(h=>h.event.includes('mismatch'))).length;
+  const openAnomalies = computeAnomalies().filter(a => !state.anomalyReviews[a.key]).length;
+
+  const finedRequests = state.requests.filter(r => r.fine);
+  const totalFineAmount = finedRequests.reduce((sum, r) => sum + (r.fine.fineAmount || 5000), 0);
+
+  // Compute parametric risk with individual multipliers
+  const incoming = state.requests.filter(r => ['pending','assigned','in_progress'].includes(r.status));
+  const scoredList = incoming.map(r => ({ r, risk: calculateParametricRisk(r) }))
+    .sort((a,b) => b.risk.totalScore - a.risk.totalScore || new Date(a.r.createdAt) - new Date(b.r.createdAt));
+
+  const openRisky = scoredList.filter(x => x.risk.level==='HIGH' || x.risk.level==='CRITICAL').length;
+
+  if (ctx.tab === 'overview') {
+    body.innerHTML = `
+      <div class="row" style="margin-bottom:18px;">
+        <div class="stat"><div class="n">${total}</div><div class="l">${t('stat_total')}</div></div>
+        <div class="stat"><div class="n">${pending}</div><div class="l">${t('stat_awaiting')}</div></div>
+        <div class="stat"><div class="n">${assigned}</div><div class="l">${t('stat_field')}</div></div>
+        <div class="stat"><div class="n">${completed}</div><div class="l">${t('stat_completed')}</div></div>
+        <div class="stat"><div class="n">${certs.length}</div><div class="l">${t('stat_certs')}</div></div>
+        <div class="stat"><div class="n">${valid}</div><div class="l">${t('stat_valid')}</div></div>
+        <div class="stat"><div class="n">${expired}</div><div class="l">${t('stat_expired')}</div></div>
+        <div class="stat" style="border-top-color:${serialFlags?'var(--brick)':'var(--line)'};"><div class="n" style="color:${serialFlags?'var(--brick)':'var(--ink)'};">${serialFlags}</div><div class="l">${t('stat_serial_flags')}</div></div>
+        <div class="stat" style="border-top-color:${openRisky?'var(--brick)':'var(--line)'};"><div class="n" style="color:${openRisky?'var(--brick)':'var(--ink)'};">${openRisky}</div><div class="l">${t('stat_high_risk')}</div></div>
+        <div class="stat" style="border-top-color:${finedRequests.length?'var(--brick)':'var(--line)'};"><div class="n" style="color:${finedRequests.length?'var(--brick)':'var(--ink)'};">₹${totalFineAmount.toLocaleString('en-IN')}</div><div class="l">${t('stat_fines')} (${finedRequests.length})</div></div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:11px;color:var(--ink-soft);margin-bottom:8px;">OBJECTIVE RISK GOVERNANCE & STATUTORY AUDIT MANDATE</div>
+        <div style="font-size:12px;line-height:1.6;">
+          Operational risk is explicitly parameterized and measured per-request across four core pillars:
+          <strong>Workload (W)</strong>, <strong>Expertise (E)</strong>, <strong>Location (L)</strong>, and <strong>Duration of Work (D)</strong>.
+          Each parameter carries its own <strong>individual multiplier</strong> ($M_w, M_e, M_l, M_d$) defined in the request menu:
+          <br/>
+          <code>Actual Risk = min(100, round((W × Mw) + (E × Me) + (L × Ml) + (D × Md)))</code>.
+          <br/><br/>
+          ⚖️ <strong>Legal Metrology Finalization Mandate</strong>: Inspecting officers (LMO / GATC) are legally required to verify on-site that the applicant's declared parameters are authentic. False declarations to lower inspection scrutiny attract a statutory fine of ₹5,000 under Section 53 of the Act.
+        </div>
+      </div>
+    `;
+  }
+  else if (ctx.tab === 'incoming') {
+    ctx.incomingFilter = ctx.incomingFilter || 'all';
+
+    let displayList = scoredList;
+    if (ctx.incomingFilter === 'high') displayList = scoredList.filter(x => x.risk.level==='HIGH' || x.risk.level==='CRITICAL');
+
+    body.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;gap:6px;">
+          <button class="btn ${ctx.incomingFilter==='all'?'':'ghost'}" style="font-size:11px;padding:5px 10px;" id="fltAll">${t('filter_all')} (${scoredList.length})</button>
+          <button class="btn ${ctx.incomingFilter==='high'?'':'ghost'}" style="font-size:11px;padding:5px 10px;border-color:var(--brick);color:${ctx.incomingFilter==='high'?'#fff':'var(--brick)'};" id="fltHigh">${t('filter_high_risk')} (${openRisky})</button>
+        </div>
+        <div style="font-size:11px;color:var(--ink-soft);">Prioritized by Actual Risk Score (Derived from Request Parameters &amp; Individual Multipliers)</div>
+      </div>
+      ${displayList.length ? `
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:130px;">${t('th_priority')}</th>
+            <th style="min-width:180px;">${t('th_params')}</th>
+            <th>${t('th_req')}</th>
+            <th>${t('th_owner')}</th>
+            <th>${t('th_inst')}</th>
+            <th>${t('th_area')}</th>
+            <th>${t('th_status')}</th>
+            <th>Audit / Fine</th>
+            <th>${t('th_assigned')}</th>
+            <th>${t('th_actions')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${displayList.map(({r, risk}) => {
+            const levelColor = risk.level==='CRITICAL' ? 'var(--brick)' : risk.level==='HIGH' ? 'var(--ochre)' : risk.level==='MEDIUM' ? '#0B3D62' : '#7B8288';
+            let auditStatusTag = '<span style="color:var(--ink-soft);font-size:10.5px;">Pending Field Audit</span>';
+            if (r.fine) {
+              auditStatusTag = `<span class="badge crit" style="font-size:9.5px;">FINED ₹${r.fine.fineAmount||5000}</span>`;
+            } else if (r.riskAudit?.status === 'VERIFIED_LEGIT') {
+              auditStatusTag = `<span class="badge valid" style="font-size:9.5px;">✓ Legit Verified</span>`;
+            }
+            return `<tr${risk.level==='CRITICAL'?' style="background:#FFF0F0;"':risk.level==='HIGH'?' style="background:#FFF8F0;"':''}>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  ${badgeForRisk(risk.level)}
+                  <span style="font-weight:bold;font-size:13px;color:${levelColor};">${risk.totalScore} / 100</span>
+                </div>
+                <div style="background:#E0E4E7;height:4px;width:95px;border-radius:2px;margin-top:4px;overflow:hidden;">
+                  <div style="background:${levelColor};height:100%;width:${risk.totalScore}%;"></div>
+                </div>
+              </td>
+              <td style="font-size:10.5px;line-height:1.4;">
+                <div><strong>W:</strong> ${risk.wBase}×${risk.wMult.toFixed(2)}=<strong>${risk.wSub}</strong> | <strong>E:</strong> ${risk.eBase}×${risk.eMult.toFixed(2)}=<strong>${risk.eSub}</strong></div>
+                <div><strong>L:</strong> ${risk.lBase}×${risk.lMult.toFixed(2)}=<strong>${risk.lSub}</strong> | <strong>D:</strong> ${risk.dBase}×${risk.dMult.toFixed(2)}=<strong>${risk.dSub}</strong></div>
+              </td>
+              <td><strong>${r.id}</strong></td>
+              <td>${r.ownerName}<div style="font-size:10px;color:var(--ink-soft);">${r.contact||''}</div></td>
+              <td>${r.type}<div style="font-size:10px;color:var(--ink-soft);">S/N: ${r.details.serial||'—'}</div></td>
+              <td><strong>${r.area}</strong></td>
+              <td>${badgeForStatus(r.status)}</td>
+              <td>${auditStatusTag}</td>
+              <td>${r.assignedRole ? r.assignedRole+' '+r.assignedId : '—'}</td>
+              <td style="white-space:nowrap;">
+                <button class="btn ghost" style="border:1px solid var(--ink);font-size:10.5px;padding:4px 8px;" data-risk="${r.id}">${t('btn_why')}</button>
+                ${r.status==='pending' ? `<button class="btn" style="font-size:10.5px;padding:4px 8px;margin-left:4px;" data-assign="${r.id}">${t('btn_assign')}</button>` : ''}
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+      <div id="riskPanel"></div>
+      <div id="assignPanel"></div>` : `<div style="color:var(--ink-soft);padding:14px 0;">No incoming requests match the current filter.</div>`}
+    `;
+
+    body.querySelector('#fltAll')?.addEventListener('click', () => { ctx.incomingFilter='all'; renderAdmin(root); });
+    body.querySelector('#fltHigh')?.addEventListener('click', () => { ctx.incomingFilter='high'; renderAdmin(root); });
+
+    body.querySelectorAll('[data-assign]').forEach(b => b.addEventListener('click', () => { 
+      ctx.riskReq=null; 
+      ctx.assignReq = b.getAttribute('data-assign'); 
+      renderAdmin(root); 
+    }));
+    body.querySelectorAll('[data-risk]').forEach(b => b.addEventListener('click', () => { 
+      ctx.assignReq=null; 
+      ctx.riskReq = (ctx.riskReq === b.getAttribute('data-risk')) ? null : b.getAttribute('data-risk'); 
+      renderAdmin(root); 
+    }));
+
+    if (ctx.assignReq) renderAssignPanel(body.querySelector('#assignPanel')||body, ctx.assignReq, () => { ctx.assignReq=null; renderAdmin(root); });
+    if (ctx.riskReq) {
+      const target = scoredList.find(x => x.r.id === ctx.riskReq);
+      if (target) renderParametricRiskPanel(body.querySelector('#riskPanel')||body, target.r, target.risk);
+    }
+  }
+  else if (ctx.tab === 'certs') {
+    body.innerHTML = certs.length ? `
+      <table><thead><tr><th>Certificate ID</th><th>${t('th_inst')}</th><th>${t('th_owner')}</th><th>Risk Audit</th><th>${t('th_status')}</th><th>Valid Until</th><th>Actions</th></tr></thead>
+      <tbody>${certs.map(c=>`<tr>
+        <td><strong>${c.id}</strong></td><td>${c.type}</td><td>${c.ownerName}</td>
+        <td>${c.riskAudit?.status==='VERIFIED_LEGIT' ? '<span class="badge valid">✓ Legit</span>' : c.riskAudit?.status==='MISDECLARED_FINED' ? '<span class="badge crit">Fined ₹5,000</span>' : '—'}</td>
+        <td>${badgeForCert(computeStatus(c))}</td><td>${fmtDate(c.validUntil)}</td>
+        <td><button class="btn ghost" style="border:1px solid var(--ink);font-size:10px;padding:3px 7px;" data-viewqr="${c.id}">QR</button></td>
+      </tr>`).join('')}</tbody></table>
+      <div id="adminQrSlot" style="margin-top:14px;"></div>
+    ` : `<div style="color:var(--ink-soft);">No certificates issued yet.</div>`;
+    wireCertQrButtons(body);
+  }
+  else if (ctx.tab === 'anomaly') {
+    body.innerHTML = anomalyTabHTML();
+    const simBtn = body.querySelector('#simulateActivity');
+    if (simBtn) simBtn.addEventListener('click', async () => { simulateOfficerActivity(); await saveState(); renderAdmin(root); });
+    const clearBtn = body.querySelector('#clearSimData');
+    if (clearBtn) clearBtn.addEventListener('click', async () => { clearSimulatedActivity(); await saveState(); renderAdmin(root); });
+    body.querySelectorAll('[data-review]').forEach(b => b.addEventListener('click', async () => {
+      state.anomalyReviews[b.getAttribute('data-review')] = { ts: nowISO(), by: session.id };
+      await saveState();
+      renderAdmin(root);
+    }));
+  }
+  else if (ctx.tab === 'audit') {
+    body.innerHTML = state.requests.length ? state.requests.map(r => historyBlockHTML(r)).join('<div class="divider"></div>') : `<div style="color:var(--ink-soft);">No activity yet.</div>`;
+  }
+}
+
+function renderParametricRiskPanel(container, req, risk){
+  const levelColor = risk.level==='CRITICAL' ? 'var(--brick)' : risk.level==='HIGH' ? 'var(--ochre)' : 'var(--ink)';
+  const panel = el(`<div class="card" style="margin-top:14px;border-left:4px solid ${levelColor};background:#FCFDFD;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-weight:bold;font-size:13.5px;color:var(--ink);">Request Menu Parametric Risk Evaluation — ${req.id}</div>
+        <div style="font-size:11px;color:var(--ink-soft);">Applicant: <strong>${req.ownerName}</strong> | Region: <strong>${req.area}</strong></div>
+      </div>
+      <div style="text-align:right;">
+        ${badgeForRisk(risk.level)}
+        <div style="font-weight:bold;font-size:16px;color:${levelColor};margin-top:2px;">${risk.totalScore} / 100 Points</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div style="background:#F1F4F7;border:1px solid #D5DCE2;padding:10px;border-radius:4px;margin-bottom:12px;font-size:11.5px;">
+      <div style="font-weight:bold;color:var(--ink);margin-bottom:4px;">Formula Applied (Individual Multipliers):</div>
+      <code>Actual Risk = min(100, round((W × Mw) + (E × Me) + (L × Ml) + (D × Md)))</code><br/>
+      <code>= min(100, round((${risk.wBase} × ${risk.wMult.toFixed(2)}) + (${risk.eBase} × ${risk.eMult.toFixed(2)}) + (${risk.lBase} × ${risk.lMult.toFixed(2)}) + (${risk.dBase} × ${risk.dMult.toFixed(2)})))</code><br/>
+      <code>= min(100, round(${risk.wSub} + ${risk.eSub} + ${risk.lSub} + ${risk.dSub})) = <strong>${risk.totalScore} / 100</strong></code>
+    </div>
+
+    <div style="font-size:11.5px;margin-bottom:6px;font-weight:bold;">Declared Parameters &amp; Multipliers:</div>
+    <table style="background:#fff;margin-bottom:12px;">
+      <thead><tr><th>Parameter</th><th>Declared Base Rating (0-25)</th><th>Individual Multiplier</th><th>Subtotal Points</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>1. ${t('param_workload')} (W)</strong></td>
+          <td>${risk.wBase} pts</td>
+          <td><strong style="color:var(--ink);">${risk.wMult.toFixed(2)}x</strong></td>
+          <td style="font-weight:bold;color:var(--ink);">${risk.wSub} pts</td>
+        </tr>
+        <tr>
+          <td><strong>2. ${t('param_expertise')} (E)</strong></td>
+          <td>${risk.eBase} pts</td>
+          <td><strong style="color:var(--ink);">${risk.eMult.toFixed(2)}x</strong></td>
+          <td style="font-weight:bold;color:var(--ink);">${risk.eSub} pts</td>
+        </tr>
+        <tr>
+          <td><strong>3. ${t('param_location')} (L)</strong></td>
+          <td>${risk.lBase} pts</td>
+          <td><strong style="color:var(--ink);">${risk.lMult.toFixed(2)}x</strong></td>
+          <td style="font-weight:bold;color:var(--ink);">${risk.lSub} pts</td>
+        </tr>
+        <tr>
+          <td><strong>4. ${t('param_duration')} (D)</strong></td>
+          <td>${risk.dBase} pts</td>
+          <td><strong style="color:var(--ink);">${risk.dMult.toFixed(2)}x</strong></td>
+          <td style="font-weight:bold;color:var(--ink);">${risk.dSub} pts</td>
+        </tr>
+        <tr style="background:#FAFBFB;border-top:2px solid var(--line);">
+          <td><strong>Total Actual Risk</strong></td>
+          <td colspan="2">Sum of Individual Multipliers</td>
+          <td style="font-weight:bold;color:${levelColor};font-size:13px;">${risk.totalScore} / 100 (${risk.level})</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`);
+  container.innerHTML = '';
+  container.appendChild(panel);
+}
+
+function renderAssignPanel(container, reqId, onDone){
+  const req = state.requests.find(r=>r.id===reqId);
+  const lmos = ACCOUNTS.filter(a=>a.role==='LMO');
+  const gatcs = ACCOUNTS.filter(a=>a.role==='GATC');
+  const panel = el(`<div class="card" style="margin-top:14px;border-left:4px solid var(--ink);">
+    <div style="font-weight:bold;font-size:12.5px;margin-bottom:8px;">Assign ${req.id} — ${req.type} (${req.ownerName}, ${req.area})</div>
+    <div class="row">
+      <div class="field">
+        <label>Verification Channel</label>
+        <select id="a_route"><option value="LMO">LMO — Field Verification (On-Site)</option><option value="GATC">GATC — Government Testing Centre (Specialized Lab)</option></select>
+      </div>
+      <div class="field"><label>Select Officer / Centre</label><select id="a_who"></select></div>
+    </div>
+    <button class="btn" id="a_submit">Confirm Assignment</button>
+  </div>`);
+  container.innerHTML = '';
+  container.appendChild(panel);
+  const routeSel = panel.querySelector('#a_route');
+  const whoSel = panel.querySelector('#a_who');
+  function fillWho(){ 
+    const list = routeSel.value==='LMO'?lmos:gatcs; 
+    whoSel.innerHTML = list.map(a=>`<option value="${a.id}">${a.label}</option>`).join(''); 
+  }
+  routeSel.addEventListener('change', fillWho); 
+  fillWho();
+  panel.querySelector('#a_submit').addEventListener('click', async () => {
+    req.status = 'assigned'; req.assignedRole = routeSel.value; req.assignedId = whoSel.value;
+    logHistory(req, `Admin assigned to ${routeSel.value} ${whoSel.value}`);
+    await saveState();
+    onDone();
+  });
+}
+
+function anomalyTabHTML(){
+  const anomalies = computeAnomalies();
+  const open = anomalies.filter(a => !state.anomalyReviews[a.key]);
+  const reviewed = anomalies.filter(a => state.anomalyReviews[a.key]);
+  const hasSimData = Object.keys(state.certificates).some(id => id.startsWith('SIM-'));
+  return `
+    <div class="card" style="margin-bottom:14px;">
+      <div style="font-size:11px;color:var(--ink-soft);margin-bottom:8px;">ANOMALY DETECTION — OFFICER INSPECTION ACTIVITY</div>
+      <div style="font-size:12px;">Flags days where an officer's inspection count is far above <em>that officer's own</em> trailing average. Flags require review to ensure verification integrity without automatic penalization.</div>
+      <div style="margin-top:10px;">
+        <button class="btn ghost" id="simulateActivity" style="border:1px solid var(--ink);">&#129514; Simulate Officer Activity (Demo Data)</button>
+        ${hasSimData ? `<button class="btn ghost" id="clearSimData" style="border:1px solid var(--brick);color:var(--brick);margin-left:8px;">Clear Simulated Data</button>` : ''}
+      </div>
+    </div>
+    ${open.length ? open.map(a => anomalyCardHTML(a,false)).join('') : `<div class="card" style="color:var(--ink-soft);">No unusual activity detected in current data.${anomalies.length===0 && reviewed.length===0 ? ' Click "Simulate Officer Activity" to populate demo data.' : ''}</div>`}
+    ${reviewed.length ? `<div class="divider"></div><div style="font-size:11px;color:var(--ink-soft);margin:10px 0;">REVIEWED ANOMALIES</div>` + reviewed.map(a => anomalyCardHTML(a,true)).join('') : ''}
+  `;
+}
+function anomalyCardHTML(a, isReviewed){
+  return `<div class="card" style="margin-bottom:10px;${isReviewed?'opacity:0.6;':''}">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-weight:bold;font-size:12.5px;">⚠️ Unusual Inspection Activity — ${a.officer}</div>
+      <span class="badge ${isReviewed?'grey':'warn'}">${isReviewed?'REVIEWED':'REVIEW REQUIRED'}</span>
+    </div>
+    <div class="divider"></div>
+    <div class="kv">
+      <div>Date</div><div>${fmtDate(a.day)}</div>
+      <div>Inspections Recorded</div><div>${a.count}</div>
+      <div>Trailing Average</div><div>${a.avg!==null ? a.avg.toFixed(1)+'/day' : 'Insufficient baseline'}</div>
+      <div>Flag Reason</div><div>${a.reason}</div>
+    </div>
+    ${!isReviewed ? `<div style="margin-top:10px;"><button class="btn ghost" style="border:1px solid var(--ink);" data-review="${a.key}">Mark Reviewed</button></div>` : ''}
+  </div>`;
+}
+
+// ---------- LMO / GATC VERIFICATION & REJECTION FLOW ----------
+function renderField(root, roleKey){
+  ctx.tab = ctx.tab || 'assignments';
+  root.innerHTML = topbar() + `<div class="container">
+    <h2 style="font-size:18px;margin-bottom:14px;">${roleKey} ${t('field_portal')} — ${session.label}</h2>
+    ${tabs([
+      {key:'assignments',label:t('tab_assignments')},
+      {key:'history',label:t('tab_history')}
+    ], ctx.tab)}
+    <div id="fieldBody"></div>
+  </div>`;
+  wireGlobalEvents(root);
+  root.querySelectorAll('[data-tab]').forEach(t => t.addEventListener('click', () => { 
+    ctx.tab = t.getAttribute('data-tab'); 
+    ctx.openReq = null; 
+    renderField(root, roleKey); 
+  }));
+  const body = root.querySelector('#fieldBody');
+  const mine = state.requests.filter(r => r.assignedId === session.id);
+
+  if (ctx.tab === 'assignments') {
+    const active = mine.filter(r => r.status==='assigned' || r.status==='in_progress');
+    if (ctx.openReq) { 
+      renderVerifyPanel(body, ctx.openReq, () => { ctx.openReq=null; renderField(root, roleKey); }); 
+      return; 
+    }
+    body.innerHTML = active.length ? `
+      <table><thead><tr><th>${t('th_req')}</th><th>${t('th_inst')}</th><th>${t('th_owner')}</th><th>${t('th_area')}</th><th>Risk Score</th><th>Audit / Fine</th><th>${t('th_status')}</th><th></th></tr></thead>
+      <tbody>${active.map(r=> {
+        const risk = calculateParametricRisk(r);
+        let auditTag = '<span style="font-size:10px;color:var(--ink-soft);">Awaiting Field Audit</span>';
+        if (r.fine) auditTag = `<span class="badge crit">FINED ₹${r.fine.fineAmount||5000}</span>`;
+        else if (r.riskAudit?.status === 'VERIFIED_LEGIT') auditTag = `<span class="badge valid">✓ Legit</span>`;
+        return `<tr>
+          <td><strong>${r.id}</strong></td>
+          <td>${r.type}<div style="font-size:10px;color:var(--ink-soft);">S/N: ${r.details.serial||'—'}</div></td>
+          <td>${r.ownerName}</td>
+          <td>${r.area}</td>
+          <td>${badgeForRisk(risk.level)} <strong>${risk.totalScore} pts</strong></td>
+          <td>${auditTag}</td>
+          <td>${badgeForStatus(r.status)}</td>
+          <td><button class="btn ghost" style="border:1px solid var(--ink);font-size:11px;padding:4px 10px;" data-open="${r.id}">${t('btn_open')}</button></td>
+        </tr>`;
+      }).join('')}</tbody></table>
+    ` : `<div style="color:var(--ink-soft);padding:14px 0;">No active assignments. Requests assigned by Legal Metrology Admin appear here.</div>`;
+    body.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => { ctx.openReq = b.getAttribute('data-open'); renderField(root, roleKey); }));
+  }
+  else if (ctx.tab === 'history') {
+    const done = mine.filter(r => r.status==='completed' || r.status==='rejected');
+    body.innerHTML = done.length ? done.map(r => {
+      const c = state.certificates[r.certificateId];
+      return historyBlockHTML(r) + 
+        (r.fine ? `
+          <div class="fine-box" style="margin-top:6px;">
+            <div style="font-weight:bold;color:var(--brick);font-size:12px;">🚨 STATUTORY FINE NOTICE #${r.fine.noticeNo}</div>
+            <div style="font-size:11px;margin-top:2px;">Penalty Amount: <strong>₹${(r.fine.fineAmount||5000).toLocaleString('en-IN')}</strong> | Status: <strong>${r.fine.paymentStatus}</strong></div>
+            <div style="font-size:11px;color:#444;margin-top:4px;">Discrepancy: ${r.fine.reason}</div>
+          </div>
+        ` : '') +
+        (r.rejection ? `<div style="margin-top:6px;">${rejectionMemoHTML(r, r.rejection)}</div>` : '') +
+        (c ? `<div style="margin-top:6px;">${certCardHTML(c,false)}</div>` : '');
+    }).join('<div class="divider"></div>') : `<div style="color:var(--ink-soft);padding:14px 0;">No completed verifications or rejections yet.</div>`;
+    wireCertQrButtons(body);
+  }
+}
+
+function renderVerifyPanel(body, reqId, onDone){
+  const req = state.requests.find(r=>r.id===reqId);
+  const fields = INSTRUMENT_TYPES[req.category].types[req.type] || [];
+  const defaultUnit = req.category === 'volume' ? 'L' : 'kg';
+  const risk = calculateParametricRisk(req);
+
+  ctx.riskAudit = req.riskAudit || null;
+
+  body.innerHTML = `
+    <button class="btn ghost" id="back" style="border:1px solid var(--ink);margin-bottom:12px;">${t('btn_back')}</button>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div style="font-weight:bold;font-size:15px;color:var(--ink);">${req.id} — ${req.type}</div>
+        <div>${badgeForRisk(risk.level)} <strong style="font-size:13px;">${risk.totalScore} / 100 Pts</strong></div>
+      </div>
+      <div class="kv" style="margin-top:8px;">
+        <div>Owner / Business</div><div>${req.ownerName}</div>
+        <div>Contact Number</div><div>${req.contact||'—'}</div>
+        <div>Location / Region</div><div>${req.area}${req.address? ' — '+req.address:''}</div>
+        ${fields.map(f=>`<div>${getFieldLabel(f)}</div><div>${req.details[f]||'—'}</div>`).join('')}
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="card">
+      <div style="font-weight:bold;font-size:13px;margin-bottom:10px;">${t('v_field_verification')}</div>
+      <div id="gpsBlock" style="font-size:11.5px;margin-bottom:10px;">
+        <button class="btn ghost" id="captureGps" style="border:1px solid var(--ink);">${t('start_verification')}</button>
+        <div id="gpsResult" style="margin-top:8px;"></div>
+      </div>
+      <div id="checklistBlock" style="display:none;">
+        <div style="font-size:11px;color:var(--ink-soft);margin-bottom:6px;font-weight:bold;">${t('checklist_title')}</div>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:12px;margin-bottom:6px;"><input type="checkbox" id="chk1" style="width:auto;"/> ${t('chk_seal')}</label>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:12px;margin-bottom:6px;"><input type="checkbox" id="chk2" style="width:auto;"/> ${t('chk_condition')}</label>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:12px;margin-bottom:12px;"><input type="checkbox" id="chk3" style="width:auto;"/> ${t('chk_display')}</label>
+
+        <div class="divider"></div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-bottom:6px;font-weight:bold;">${t('testing_title')}</div>
+        <div class="row">
+          <div class="field" style="flex:1;">
+            <label>${t('lbl_declared')}</label>
+            <input type="number" step="0.001" min="0.001" id="declared" value="10.000" placeholder="10.000"/>
+          </div>
+          <div class="field" style="flex:1;">
+            <label>${t('lbl_measured')}</label>
+            <input type="number" step="0.001" min="0.001" id="measured" value="10.002" placeholder="10.002"/>
+          </div>
+          <div class="field" style="flex:1;">
+            <label>${t('lbl_tolerance')}</label>
+            <input type="number" step="0.001" min="0.0001" id="tolerance" value="0.005" placeholder="0.005"/>
+          </div>
+          <div class="field" style="flex:0 0 90px;">
+            <label>${t('lbl_unit')}</label>
+            <select id="testUnit">
+              <option value="kg"${defaultUnit==='kg'?' selected':''}>kg</option>
+              <option value="g">g</option>
+              <option value="L"${defaultUnit==='L'?' selected':''}>L</option>
+              <option value="mL">mL</option>
+            </select>
+          </div>
+        </div>
+        <div id="toleranceEvalBox" style="margin-top:4px;"></div>
+
+        <div class="divider"></div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-bottom:6px;font-weight:bold;">${t('ocr_title')}</div>
+        <div style="font-size:11.5px;margin-bottom:8px;">${t('ocr_reg_serial')}: <strong>${req.details.serial || '—'}</strong></div>
+        
+        <!-- Dedicated Device Camera OCR Card -->
+        <div class="card" style="text-align:center;background:#F8FAFC;border:2px dashed var(--ink);padding:14px;margin-bottom:12px;">
+          <div style="font-weight:bold;font-size:12.5px;color:var(--ink);">${t('ocr_cam_box_title')}</div>
+          <div style="font-size:11px;color:var(--ink-soft);margin:4px 0 10px 0;">${t('ocr_cam_box_desc')}</div>
+          <button class="btn moss" id="ocrOpenCam" style="padding:8px 20px;font-size:12px;">${t('ocr_open_cam_btn')}</button>
+          <div style="font-size:10px;color:var(--ink-soft);margin-top:6px;">${t('ocr_cam_hint')}</div>
+        </div>
+
+        <div class="row" style="align-items:flex-end;">
+          <div class="field" style="flex:2;">
+            <label>${t('ocr_captured_lbl')}</label>
+            <input id="ocrCaptured" placeholder="Scanned from camera or enter serial manually"/>
+          </div>
+        </div>
+        <div id="ocrResult"></div>
+        <div id="ocrScannerHost"></div>
+
+        <!-- NEW FEATURE: RISK SCORE LEGITIMACY VERIFICATION & STATUTORY FINE (LMO & GATC FINALIZATION) -->
+        <div class="divider"></div>
+        <div class="card" id="riskAuditCard" style="background:#FAFCFF;border:1px solid #B8D5E5;border-left:4px solid var(--ink);padding:14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div style="font-weight:bold;font-size:12.5px;color:var(--ink);">${t('risk_audit_title')}</div>
+              <div style="font-size:11px;color:var(--ink-soft);">${t('risk_audit_sub')}</div>
+            </div>
+            <div>
+              ${badgeForRisk(risk.level)}
+              <span style="font-weight:bold;font-size:13px;color:var(--ink);margin-left:4px;">${risk.totalScore} / 100 Pts</span>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid var(--line);border-radius:3px;padding:8px 10px;margin:10px 0;font-size:11px;">
+            <div style="font-weight:bold;color:var(--ink);margin-bottom:2px;">Customer Declared Operational Metrics:</div>
+            <div style="color:var(--ink-soft);line-height:1.5;">
+              <strong>Workload:</strong> ${risk.wBase} pts × ${risk.wMult.toFixed(2)} = ${risk.wSub} pts &nbsp;|&nbsp;
+              <strong>Complexity/Expertise:</strong> ${risk.eBase} pts × ${risk.eMult.toFixed(2)} = ${risk.eSub} pts<br/>
+              <strong>Location Hub:</strong> ${risk.lBase} pts × ${risk.lMult.toFixed(2)} = ${risk.lSub} pts &nbsp;|&nbsp;
+              <strong>Turnaround/Duration:</strong> ${risk.dBase} pts × ${risk.dMult.toFixed(2)} = ${risk.dSub} pts
+            </div>
+          </div>
+
+          <!-- Tick Mark for verifying that risk score is legit -->
+          <div id="riskLegitBox" style="margin-bottom:8px;">
+            <label style="display:flex;align-items:flex-start;gap:8px;text-transform:none;font-size:12px;cursor:pointer;font-weight:600;color:var(--ink);">
+              <input type="checkbox" id="chkRiskLegit" style="width:auto;margin-top:2px;cursor:pointer;"/>
+              <span>${t('risk_audit_chk').replace('{score}', risk.totalScore)}</span>
+            </label>
+          </div>
+
+          <div style="font-size:10.5px;color:#555;background:#F1F3F0;padding:6px 10px;border-radius:3px;margin-bottom:10px;border-left:3px solid var(--ochre);">
+            ⚖️ <strong>${t('risk_audit_statutory_note')}</strong>
+          </div>
+
+          <!-- Section to flag illegitimate / false risk score with fine -->
+          <div id="riskFineActionArea">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn ghost" id="btnToggleRiskFine" style="border:1px solid var(--brick);color:var(--brick);font-size:11px;padding:5px 12px;">
+                ${t('risk_audit_flag_btn')}
+              </button>
+              <span style="font-size:10.5px;color:var(--ink-soft);">Use if applicant under-reported parameters to evade high-risk scrutiny.</span>
+            </div>
+
+            <div id="fineFormArea" style="display:none;margin-top:10px;background:#FFF5F5;border:1px solid var(--brick);padding:12px;border-radius:4px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span style="font-weight:bold;color:var(--brick);font-size:12px;">🚨 STATUTORY FINE NOTICE ISSUANCE (SECTION 53)</span>
+                <span class="stamp" style="color:var(--brick);font-size:12px;font-weight:bold;">MANDATORY FINE: ₹5,000</span>
+              </div>
+              <div style="font-size:11px;color:#444;margin-bottom:8px;">
+                The customer declared an operational score of <strong>${risk.totalScore} pts</strong>, but physical on-site verification revealed falsified or misdeclared operational parameters.
+              </div>
+              <div class="field" style="margin-bottom:8px;">
+                <label style="font-size:10px;color:var(--brick);">Specific Inspection Findings / Discrepancy Reason *</label>
+                <input id="fineFindingReason" placeholder="e.g. Customer declared light retail workload, but unit operates in continuous 24/7 heavy industrial loading" value="Applicant under-declared operational workload and complexity to evade high-risk verification protocols"/>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <button type="button" class="btn brick" id="btnConfirmRiskFine" style="font-size:11px;padding:6px 14px;">Confirm & Impose ₹5,000 Fine on Applicant</button>
+                <button type="button" class="btn ghost" id="btnCancelRiskFine" style="font-size:11px;padding:6px 12px;">Cancel</button>
+              </div>
+            </div>
+
+            <div id="activeFineStatus" style="display:none;margin-top:10px;" class="msg err"></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div id="verifyErrSlot"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button class="btn moss" id="submitVerify" style="padding:9px 18px;">${t('btn_submit_cert')}</button>
+          <button class="btn brick" id="rejectVerify" style="padding:9px 18px;">${t('btn_reject_app')}</button>
+        </div>
+      </div>
+    </div>
+    <div id="rejectionModalHost"></div>
+  `;
+
+  body.querySelector('#back').addEventListener('click', onDone);
+
+  // GPS Capture step
+  body.querySelector('#captureGps').addEventListener('click', () => {
+    const gps = `${(22.9 + Math.random()*0.15).toFixed(5)}° N, ${(72.5 + Math.random()*0.15).toFixed(5)}° E`;
+    ctx.gps = gps; ctx.ts = nowISO();
+    body.querySelector('#gpsResult').innerHTML = `<div class="msg ok">✓ GPS Captured: ${gps} · Timestamp: ${new Date(ctx.ts).toLocaleString()} · Officer: ${session.id}</div>`;
+    body.querySelector('#checklistBlock').style.display = 'block';
+    req.status = 'in_progress';
+    saveState();
+    evaluateTolerance();
+  });
+
+  // Tolerance evaluation logic
+  function evaluateTolerance(){
+    const dec = parseFloat(body.querySelector('#declared').value);
+    const meas = parseFloat(body.querySelector('#measured').value);
+    const tol = parseFloat(body.querySelector('#tolerance').value);
+    const unit = body.querySelector('#testUnit').value;
+    const box = body.querySelector('#toleranceEvalBox');
+
+    if (isNaN(dec) || isNaN(meas) || isNaN(tol) || dec <= 0 || meas <= 0 || tol <= 0) {
+      box.innerHTML = `<div class="msg err">Please enter valid numerical values greater than 0 for standard value, measured value, and tolerance limit.</div>`;
+      return { valid: false, isPass: false };
+    }
+
+    const diff = meas - dec;
+    const absError = Math.abs(diff);
+    const isPass = absError <= (tol + 1e-9);
+
+    ctx.toleranceEval = { dec, meas, tol, unit, diff, absError, isPass };
+
+    if (isPass) {
+      box.innerHTML = `<div class="msg ok">
+        <strong>${t('tol_pass')}</strong><br/>
+        Declared: <strong>${dec.toFixed(3)} ${unit}</strong> | Measured: <strong>${meas.toFixed(3)} ${unit}</strong> | Error: <strong>${diff>=0?'+':''}${diff.toFixed(4)} ${unit}</strong> (|Δ| = ${absError.toFixed(4)} ${unit}) ≤ Permissible: <strong>±${tol.toFixed(4)} ${unit}</strong>
+      </div>`;
+    } else {
+      const excess = (absError - tol).toFixed(4);
+      box.innerHTML = `<div class="msg err">
+        <strong>${t('tol_fail')}</strong><br/>
+        Error: <strong>${diff>=0?'+':''}${diff.toFixed(4)} ${unit}</strong> (|Δ| = ${absError.toFixed(4)} ${unit}) EXCEEDS permissible tolerance limit of <strong>±${tol.toFixed(4)} ${unit}</strong> by <strong>${excess} ${unit}</strong>! Approval is blocked. You must reject this application or order recalibration.
+      </div>`;
+    }
+
+    return { valid: true, isPass, dec, meas, tol, unit, diff, absError };
+  }
+
+  body.querySelector('#declared').addEventListener('input', evaluateTolerance);
+  body.querySelector('#measured').addEventListener('input', evaluateTolerance);
+  body.querySelector('#tolerance').addEventListener('input', evaluateTolerance);
+  body.querySelector('#testUnit').addEventListener('change', evaluateTolerance);
+
+  // OCR Serial Check
+  function runOcrCheck(){
+    const captured = body.querySelector('#ocrCaptured').value.trim();
+    const resEl = body.querySelector('#ocrResult');
+    if (!captured) { ctx.ocrResult = null; resEl.innerHTML = ''; return; }
+    const result = matchSerial(req.details.serial, captured);
+    ctx.ocrResult = { captured, ...result };
+    if (result.status === 'MATCH') {
+      resEl.innerHTML = `<div class="msg ok">${t('ocr_match_ok')}</div>`;
+    } else if (result.status === 'REVIEW') {
+      resEl.innerHTML = `<div class="msg" style="border-color:var(--ochre);color:var(--ochre);background:#FFF2E0;">
+        ${t('ocr_review_warn')} (Distance: ${result.distance} char)
+        <label style="display:flex;align-items:center;gap:6px;text-transform:none;font-size:12px;margin-top:8px;color:#222;">
+          <input type="checkbox" id="ocrOverride" style="width:auto;"/> I have visually inspected and confirm the physical serial plate matches
+        </label>
+      </div>`;
+    } else {
+      resEl.innerHTML = `<div class="msg err">${t('ocr_mismatch_err')} (Captured: "${captured}" vs Registered: "${req.details.serial}")</div>`;
+    }
+  }
+
+  body.querySelector('#ocrCaptured').addEventListener('input', runOcrCheck);
+
+  // OCR Camera Modal
+  body.querySelector('#ocrOpenCam').addEventListener('click', () => {
+    openOcrScannerModal(body, req, (capturedSerial) => {
+      body.querySelector('#ocrCaptured').value = capturedSerial;
+      runOcrCheck();
+    });
+  });
+
+  // --- RISK AUDIT & FINE INTERACTION LOGIC ---
+  const chkRiskLegit = body.querySelector('#chkRiskLegit');
+  const btnToggleRiskFine = body.querySelector('#btnToggleRiskFine');
+  const fineFormArea = body.querySelector('#fineFormArea');
+  const btnConfirmRiskFine = body.querySelector('#btnConfirmRiskFine');
+  const btnCancelRiskFine = body.querySelector('#btnCancelRiskFine');
+  const activeFineStatus = body.querySelector('#activeFineStatus');
+  const fineFindingReason = body.querySelector('#fineFindingReason');
+
+  chkRiskLegit.addEventListener('change', () => {
+    if (chkRiskLegit.checked) {
+      ctx.riskAudit = {
+        status: 'VERIFIED_LEGIT',
+        officer: session.id,
+        ts: nowISO(),
+        declaredScore: risk.totalScore
+      };
+      fineFormArea.style.display = 'none';
+      activeFineStatus.style.display = 'none';
+      btnToggleRiskFine.style.display = 'inline-block';
+    } else {
+      ctx.riskAudit = null;
+    }
+  });
+
+  btnToggleRiskFine.addEventListener('click', () => {
+    chkRiskLegit.checked = false;
+    fineFormArea.style.display = 'block';
+    activeFineStatus.style.display = 'none';
+  });
+
+  btnCancelRiskFine.addEventListener('click', () => {
+    fineFormArea.style.display = 'none';
+    if (ctx.riskAudit?.status !== 'MISDECLARED_FINED') {
+      ctx.riskAudit = null;
+    }
+  });
+
+  btnConfirmRiskFine.addEventListener('click', () => {
+    const reason = fineFindingReason.value.trim();
+    if (!reason || reason.length < 5) {
+      alert('Please state specific inspection findings for the misdeclaration.');
+      return;
+    }
+    const noticeNo = 'FN-AHD-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random()*8999);
+    ctx.riskAudit = {
+      status: 'MISDECLARED_FINED',
+      fineAmount: 5000,
+      noticeNo,
+      reason,
+      officer: session.id,
+      ts: nowISO(),
+      declaredScore: risk.totalScore,
+      paymentStatus: 'PENDING'
+    };
+    chkRiskLegit.checked = false;
+    fineFormArea.style.display = 'none';
+    activeFineStatus.style.display = 'block';
+    activeFineStatus.innerHTML = `
+      <strong>🚨 STATUTORY FINE OF ₹5,000 LEVIED ON APPLICANT</strong><br/>
+      Notice No: <strong>${noticeNo}</strong> | Reason: <em>"${reason}"</em>.<br/>
+      Penalty recorded under Section 53. You may now finalize certificate with compounding penalty or issue Rejection Order.
+    `;
+  });
+
+  // Submit Verification & Issue Certificate
+  body.querySelector('#submitVerify').addEventListener('click', async () => {
+    const errSlot = body.querySelector('#verifyErrSlot');
+    errSlot.innerHTML = '';
+
+    const c1 = body.querySelector('#chk1').checked;
+    const c2 = body.querySelector('#chk2').checked;
+    const c3 = body.querySelector('#chk3').checked;
+    if (!c1 || !c2 || !c3) {
+      errSlot.innerHTML = `<div class="msg err">All physical inspection checklist items (Seal, Physical condition, Display) must be verified and checked to approve. If non-compliant, click "Reject Application".</div>`;
+      return;
+    }
+
+    const tolRes = evaluateTolerance();
+    if (!tolRes.valid) {
+      errSlot.innerHTML = `<div class="msg err">Valid numerical testing weights are mandatory.</div>`;
+      return;
+    }
+    if (!tolRes.isPass) {
+      errSlot.innerHTML = `<div class="msg err">🚨 <strong>Approval Strictly Blocked</strong>: The measured error (${tolRes.absError.toFixed(4)} ${tolRes.unit}) exceeds legal tolerance (±${tolRes.tol.toFixed(4)} ${tolRes.unit}). You cannot approve this instrument. Issue a Rejection Order instead.</div>`;
+      return;
+    }
+
+    const ocr = ctx.ocrResult;
+    if (!ocr || !ocr.captured) {
+      errSlot.innerHTML = `<div class="msg err">Please capture or verify the serial number plate before submitting.</div>`;
+      return;
+    }
+    if (ocr.status === 'MISMATCH') {
+      logHistory(req, `${session.role} ${session.id} flagged a serial mismatch — captured "${ocr.captured}" vs registered "${req.details.serial}"`);
+      await saveState();
+      errSlot.innerHTML = `<div class="msg err">🔴 Serial mismatch detected. Certificate cannot be generated for an unverified serial number. Issue a Rejection Order or report discrepancy.</div>`;
+      return;
+    }
+    if (ocr.status === 'REVIEW' && !body.querySelector('#ocrOverride')?.checked) {
+      errSlot.innerHTML = `<div class="msg err">Please confirm visual inspection checkbox for serial number review.</div>`;
+      return;
+    }
+
+    // MANDATORY CHECK: Risk Score Legitimacy Audit
+    if (!ctx.riskAudit || !ctx.riskAudit.status) {
+      errSlot.innerHTML = `<div class="msg err"><strong>${t('err_risk_unverified')}</strong></div>`;
+      body.querySelector('#riskAuditCard').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    const certId = 'LM-AHD-' + new Date().getFullYear() + '-' + Math.floor(100000+Math.random()*899999);
+    const evidenceHash = Array.from({length:16},()=> '0123456789ABCDEF'[Math.floor(Math.random()*16)]).join('');
+    const cert = {
+      id: certId,
+      requestId: req.id,
+      type: req.type,
+      category: req.category,
+      details: req.details,
+      ownerId: req.ownerId,
+      ownerName: req.ownerName,
+      area: req.area,
+      verifiedRole: session.role,
+      verifiedId: session.id,
+      verifiedDate: nowISO(),
+      validUntil: addDays(new Date(), 365).toISOString(),
+      gps: ctx.gps,
+      evidenceHash,
+      revoked: false,
+      declared: `${tolRes.dec} ${tolRes.unit}`,
+      measured: `${tolRes.meas} ${tolRes.unit}`,
+      tolerance: `±${tolRes.tol} ${tolRes.unit}`,
+      error: `${tolRes.diff>=0?'+':''}${tolRes.diff.toFixed(4)} ${tolRes.unit}`,
+      ocrCheck: ctx.ocrResult,
+      riskAudit: ctx.riskAudit
+    };
+
+    state.certificates[certId] = cert;
+    req.status = 'completed';
+    req.certificateId = certId;
+    req.riskAudit = ctx.riskAudit;
+
+    if (ctx.riskAudit.status === 'MISDECLARED_FINED') {
+      req.fine = ctx.riskAudit;
+      logHistory(req, `🚨 Statutory Fine of ₹5,000 levied on applicant by ${session.role} ${session.id} for false risk declaration (Notice #${ctx.riskAudit.noticeNo}).`);
+    } else {
+      logHistory(req, `${session.role} ${session.id} certified customer's declared risk score (${risk.totalScore} pts) as authentic and legitimate.`);
+    }
+
+    logHistory(req, `${session.role} ${session.id} completed verification — Certificate ${certId} issued (Error: ${cert.error} within ${cert.tolerance})`);
+    await saveState();
+    renderQrResult(body, cert, onDone);
+  });
+
+  // Rejection Button & Workflow
+  body.querySelector('#rejectVerify').addEventListener('click', () => {
+    const tolRes = evaluateTolerance();
+    openRejectionModal(body, req, tolRes, onDone);
+  });
+}
+
+// ---------- FORMAL REJECTION WORKFLOW ----------
+function openRejectionModal(body, req, tolRes, onDone){
+  const host = body.querySelector('#rejectionModalHost');
+
+  let defaultReason = 'Measured Error Exceeds Maximum Permissible Error (MPE)';
+  if (ctx.riskAudit?.status === 'MISDECLARED_FINED') defaultReason = 'Fraudulent / Misdeclared Operational Risk Assessment';
+  else if (tolRes && !tolRes.isPass) defaultReason = 'Measured Error Exceeds Maximum Permissible Error (MPE)';
+  else if (!body.querySelector('#chk1')?.checked) defaultReason = 'Verification Seal Broken, Missing or Tampered';
+  else if (!body.querySelector('#chk2')?.checked) defaultReason = 'Physical Structure Damaged or Altered';
+  else if (!body.querySelector('#chk3')?.checked) defaultReason = 'Display / Zero Indication Defective';
+  else if (ctx.ocrResult?.status === 'MISMATCH') defaultReason = 'Serial Number Plate Mismatch / Tampered Marking';
+
+  host.innerHTML = `
+  <div class="scan-modal" id="rejModal">
+    <div class="card" style="width:420px;max-width:92vw;background:#fff;border-top:4px solid var(--brick);box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+      <div style="font-weight:bold;font-size:14px;color:var(--brick);">${t('rej_modal_title')}</div>
+      <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">Request ID: <strong>${req.id}</strong> · ${req.type} (${req.ownerName})</div>
+      <div class="divider"></div>
+      <div class="field">
+        <label>${t('rej_reason_lbl')}</label>
+        <select id="rejReason">
+          <option value="Fraudulent / Misdeclared Operational Risk Assessment"${defaultReason.includes('Risk')?' selected':''}>Fraudulent / Misdeclared Operational Risk Assessment (Section 53)</option>
+          <option value="Measured Error Exceeds Maximum Permissible Error (MPE)"${defaultReason.includes('Error')?' selected':''}>Measured Error Exceeds Maximum Permissible Error (MPE Limit)</option>
+          <option value="Verification Seal Broken, Missing or Tampered"${defaultReason.includes('Seal')?' selected':''}>Verification Seal Broken, Missing or Tampered</option>
+          <option value="Physical Structure Damaged or Altered"${defaultReason.includes('Physical')?' selected':''}>Physical Structure Damaged or Altered</option>
+          <option value="Display / Zero Indication Defective"${defaultReason.includes('Display')?' selected':''}>Display / Zeroing Mechanism Defective</option>
+          <option value="Serial Number Plate Mismatch / Tampered Marking"${defaultReason.includes('Serial')?' selected':''}>Serial Number Plate Mismatch / Fraudulent Marking</option>
+          <option value="Unapproved Make / Pattern Specifications">Unapproved Make / Pattern Specifications</option>
+          <option value="Other Statutory Non-Compliance">Other Statutory Non-Compliance</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>${t('rej_remarks_lbl')}</label>
+        <textarea id="rejRemarks" rows="3" placeholder="Enter specific observations, error measurements, or defects found during inspection..."></textarea>
+      </div>
+      <div id="rejErrSlot"></div>
+      <div style="background:#FFF0F0;border:1px solid var(--brick);padding:8px 10px;font-size:10.5px;color:var(--brick);margin-bottom:12px;">
+        ⚠️ This will formally reject the application under the Legal Metrology Act, 2009. The applicant will be served a Statutory Rejection Order.
+        ${ctx.riskAudit?.status === 'MISDECLARED_FINED' ? '<br/><strong>A penalty notice of ₹5,000 will be attached for false risk declaration.</strong>' : ''}
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn ghost" id="cancelRej" style="border:1px solid var(--line);">${t('rej_cancel_btn')}</button>
+        <button class="btn brick" id="confirmRej">${t('rej_confirm_btn')}</button>
+      </div>
+    </div>
+  </div>`;
+
+  host.querySelector('#cancelRej').addEventListener('click', () => { host.innerHTML = ''; });
+  host.querySelector('#confirmRej').addEventListener('click', async () => {
+    const reason = host.querySelector('#rejReason').value;
+    const remarks = host.querySelector('#rejRemarks').value.trim();
+    if (!remarks || remarks.length < 5) {
+      host.querySelector('#rejErrSlot').innerHTML = `<div class="msg err">Please provide detailed technical observations (at least 5 characters).</div>`;
+      return;
+    }
+
+    const orderNo = 'REJ-ORD-' + new Date().getFullYear() + '-' + Math.floor(1000+Math.random()*8999);
+    const rejectionData = {
+      orderNo,
+      reason,
+      remarks,
+      officerId: session.id,
+      officerRole: session.role,
+      ts: nowISO(),
+      gps: ctx.gps || 'Recorded at site',
+      standardVal: tolRes?.dec ? `${tolRes.dec} ${tolRes.unit}` : 'N/A',
+      measuredVal: tolRes?.meas ? `${tolRes.meas} ${tolRes.unit}` : 'N/A',
+      errorVal: tolRes?.diff ? `${tolRes.diff>=0?'+':''}${tolRes.diff.toFixed(4)} ${tolRes.unit}` : 'N/A',
+      toleranceLimit: tolRes?.tol ? `±${tolRes.tol} ${tolRes.unit}` : 'N/A',
+    };
+
+    req.status = 'rejected';
+    req.rejection = rejectionData;
+
+    if (ctx.riskAudit?.status === 'MISDECLARED_FINED') {
+      req.fine = ctx.riskAudit;
+      logHistory(req, `Statutory Fine of ₹5,000 levied on applicant (Notice #${ctx.riskAudit.noticeNo})`);
+    }
+
+    logHistory(req, `Statutory Rejection Order issued by ${session.role} ${session.id} — Ground: ${reason} (Order #${orderNo})`);
+    await saveState();
+
+    host.innerHTML = '';
+    renderRejectionOrderScreen(body, req, rejectionData, onDone);
+  });
+}
+
+function rejectionMemoHTML(req, rj){
+  return `
+  <div class="card" style="border-left:4px solid var(--brick);background:#FFF9F9;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-weight:bold;font-size:13px;color:var(--brick);">STATUTORY REJECTION ORDER UNDER LEGAL METROLOGY ACT, 2009</div>
+        <div style="font-size:10.5px;color:var(--ink-soft);">Notice No: <strong>${rj.orderNo}</strong> · Date: ${fmtDate(rj.ts)}</div>
+      </div>
+      <span class="badge crit">REJECTED</span>
+    </div>
+    <div class="divider"></div>
+    <div class="kv">
+      <div>Instrument</div><div>${req.type} (S/N: ${req.details.serial||'—'})</div>
+      <div>Owner / Firm</div><div>${req.ownerName} (${req.area})</div>
+      <div>Inspecting Officer</div><div>${rj.officerRole} ${rj.officerId} (GPS: ${rj.gps})</div>
+      <div>Statutory Ground</div><div><strong style="color:var(--brick);">${rj.reason}</strong></div>
+      <div>Officer Findings</div><div>${rj.remarks}</div>
+      ${rj.errorVal !== 'N/A' ? `<div>Testing Results</div><div>Standard: ${rj.standardVal} | Measured: ${rj.measuredVal} | Error: <strong>${rj.errorVal}</strong> (Permissible: ${rj.toleranceLimit})</div>` : ''}
+      ${req.fine ? `<div>Statutory Fine Notice</div><div><strong style="color:var(--brick);">₹${req.fine.fineAmount||5000} Fine Levied (Notice #${req.fine.noticeNo})</strong></div>` : ''}
+      <div>Legal Directive</div><div style="font-size:11px;color:var(--ink-soft);">The instrument is unfit for commercial transaction. Commercial use of this instrument without recalibration and re-verification attracts penalties under Section 30 of the Act. The applicant may re-apply after authorized repair or appeal within 30 days.</div>
+    </div>
+  </div>`;
+}
+
+function renderRejectionOrderScreen(body, req, rj, onDone){
+  body.innerHTML = `
+    <div class="msg err"><strong>Application Formally Rejected</strong>. Statutory Rejection Order #${rj.orderNo} has been served on the applicant.</div>
+    ${rejectionMemoHTML(req, rj)}
+    <div style="margin-top:16px;">
+      <button class="btn ghost" id="backAfterRej" style="border:1px solid var(--ink);">${t('btn_back')}</button>
+    </div>
+  `;
+  body.querySelector('#backAfterRej').addEventListener('click', onDone);
+}
+
+function renderQrResult(body, cert, onDone){
+  const qrPayload = `MEIRA-CERT:${cert.id}`;
+  body.innerHTML = `
+    <div class="msg ok">Verification submitted. Certificate issued successfully.</div>
+    ${certCardHTML(cert,false)}
+    <div class="card" style="margin-top:12px;text-align:center;">
+      <div style="font-size:11px;color:var(--ink-soft);margin-bottom:10px;">HAND THIS QR TO THE OWNER — affix a copy to the instrument</div>
+      <div class="qr-box" id="qrTarget"></div>
+      <div style="font-size:10px;color:var(--ink-soft);margin-top:8px;">Encodes: ${qrPayload}<br/>Scanning opens this record in MEIRA's Public Verification view.</div>
+      <div style="margin-top:12px;"><button class="btn ghost" id="backDone" style="border:1px solid var(--ink);">Done — Back to Assignments</button></div>
+    </div>`;
+  body.querySelector('#backDone').addEventListener('click', onDone);
+  wireCertQrButtons(body);
+  const tEl = body.querySelector('#qrTarget');
+  if (tEl) drawPseudoQR(tEl, qrPayload, 150);
+}
+
+// ---------- CAMERA OCR MODAL ----------
+function openOcrScannerModal(body, req, onCaptured){
+  const host = body.querySelector('#ocrScannerHost');
+  if (!host) return;
+  const regSerial = req.details.serial || uid('WM');
+  let activeStream = null;
+
+  host.innerHTML = `
+  <div class="scan-modal" id="ocrScanModal">
+    <div class="scan-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="color:#fff;font-size:11px;letter-spacing:0.05em;font-weight:bold;">📷 CAMERA OCR SCANNER</div>
+        <span id="camStatusBadge" style="font-size:9.5px;color:#34C759;background:rgba(52,199,89,0.15);padding:1px 6px;border-radius:2px;">Optical Ready</span>
+      </div>
+      <div class="viewfinder" id="ocrVf">
+        <video id="ocrCamVideo" autoplay playsinline style="width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0;"></video>
+        <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+        <div class="scanline"></div>
+        <div class="ocr-target-frame"><span>[ SERIAL NO. PLATE ]</span></div>
+      </div>
+      <div style="color:#abb4ba;font-size:10px;margin-top:10px;">Align camera frame with the serial number plate on the machine.</div>
+      
+      <button class="btn moss" id="ocrCaptureBtn" style="margin-top:10px;width:100%;padding:9px;font-size:12px;">📸 Capture & Run OCR</button>
+      
+      <div style="display:flex;gap:4px;margin-top:8px;">
+        <button class="btn ghost" id="simExact" style="flex:1;background:#222;color:#fff;font-size:9.5px;padding:4px;border:1px solid #444;" title="Simulate Exact Read">Exact</button>
+        <button class="btn ghost" id="simNoise" style="flex:1;background:#222;color:#fff;font-size:9.5px;padding:4px;border:1px solid #444;" title="Simulate 1-char OCR noise">Noise</button>
+        <button class="btn ghost" id="simMismatch" style="flex:1;background:#222;color:#fff;font-size:9.5px;padding:4px;border:1px solid #444;" title="Simulate Mismatched plate">Mismatch</button>
+      </div>
+
+      <button class="btn ghost" id="ocrCloseScan" style="margin-top:8px;width:100%;background:#fff;padding:6px;font-size:11px;">Cancel</button>
+    </div>
+  </div>`;
+
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      .then(stream => {
+        activeStream = stream;
+        const vid = host.querySelector('#ocrCamVideo');
+        if (vid) {
+          vid.srcObject = stream;
+          vid.style.display = 'block';
+        }
+        const badge = host.querySelector('#camStatusBadge');
+        if (badge) badge.innerText = 'Live Device Camera';
+      })
+      .catch(() => {
+        const badge = host.querySelector('#camStatusBadge');
+        if (badge) badge.innerText = 'Optical Sensor';
+      });
+  }
+
+  function cleanup(){
+    if (activeStream) {
+      activeStream.getTracks().forEach(track => track.stop());
+      activeStream = null;
+    }
+    host.innerHTML = '';
+  }
+
+  host.querySelector('#ocrCloseScan').addEventListener('click', cleanup);
+
+  function executeCapture(simType){
+    let captured;
+    if (simType === 'exact') captured = regSerial;
+    else if (simType === 'noise') captured = introduceOcrNoise(regSerial, 1);
+    else if (simType === 'mismatch') captured = introduceOcrNoise(regSerial, 3);
+    else {
+      const roll = Math.random();
+      if (roll < 0.65) captured = regSerial;
+      else if (roll < 0.88) captured = introduceOcrNoise(regSerial, 1);
+      else captured = introduceOcrNoise(regSerial, 3);
+    }
+
+    const vf = host.querySelector('#ocrVf');
+    if (vf) {
+      vf.style.transition = 'filter 0.1s ease';
+      vf.style.filter = 'brightness(2.5)';
+      setTimeout(() => {
+        cleanup();
+        onCaptured(captured);
+      }, 200);
+    } else {
+      cleanup();
+      onCaptured(captured);
+    }
+  }
+
+  host.querySelector('#ocrCaptureBtn').addEventListener('click', () => executeCapture('auto'));
+  host.querySelector('#simExact').addEventListener('click', () => executeCapture('exact'));
+  host.querySelector('#simNoise').addEventListener('click', () => executeCapture('noise'));
+  host.querySelector('#simMismatch').addEventListener('click', () => executeCapture('mismatch'));
+}
+
+// ---------- PUBLIC VIEW ----------
+function renderPublic(root){
+  ctx.tab = ctx.tab || 'search';
+  root.innerHTML = govChrome() + `
+  <div class="topbar">
+    <div class="brand"><div class="emblem"></div><div class="brand-mark">M</div><div>
+      <div style="font-weight:bold;font-size:16px;color:var(--ink);">MEIRA</div>
+      <div style="font-size:9.5px;color:var(--ink-soft);">${t('brand_sub')}</div>
+    </div></div>
+    <button class="btn ghost" id="backLogin">← ${t('signin')}</button>
+  </div>
+  <div class="container" style="max-width:560px;">
+    <h2 style="font-size:17px;margin-bottom:6px;">${t('pub_verify_title')}</h2>
+    <div style="font-size:11.5px;color:var(--ink-soft);margin-bottom:14px;">${t('pub_verify_sub')}</div>
+    <div class="card" style="text-align:center;margin-bottom:16px;">
+      <button class="btn moss" id="openScanner" style="padding:10px 22px;">${t('pub_scan_btn')}</button>
+      <div style="font-size:10px;color:var(--ink-soft);margin-top:8px;">Uses your device camera to scan the certificate QR</div>
+    </div>
+    <div class="row"><div class="field" style="flex:2;"><input id="p_search" placeholder="e.g. LM-AHD-2026-928371"/></div>
+    <div class="field" style="flex:0 0 auto;"><button class="btn" id="p_go">${t('pub_check_btn')}</button></div></div>
+    <div id="p_result"></div>
+  </div>
+  <div id="scannerHost"></div>`;
+
+  wireGlobalEvents(root);
+  root.querySelector('#backLogin').addEventListener('click', () => { session=null; view='login'; ctx={}; render(); });
+  root.querySelector('#openScanner').addEventListener('click', () => openScannerModal(root));
+  root.querySelector('#p_go').addEventListener('click', () => {
+    let q = root.querySelector('#p_search').value.trim();
+    q = q.replace('MEIRA-CERT:','').trim();
+    const c = state.certificates[q];
+    const resEl = root.querySelector('#p_result');
+    if (!c) { resEl.innerHTML = `<div class="msg err" style="margin-top:14px;">🔴 INVALID / NOT FOUND — No active or historical certificate found with ID "${q}". Please verify with Legal Metrology authorities.</div>`; return; }
+    const status = computeStatus(c);
+    const statusIcon = status==='VALID' ? '🟢' : status==='EXPIRED' ? '🟠' : '🔴';
+    resEl.innerHTML = `<div class="card" style="margin-top:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-family: Verdana, Arial, sans-serif;font-weight:700;">${statusIcon} ${status}</div>
+        ${badgeForCert(status)}
+      </div>
+      <div class="divider"></div>
+      <div class="kv">
+        <div>Instrument</div><div>${c.type}</div>
+        <div>Business / Trader</div><div>${c.ownerName}</div>
+        <div>Manufacturer</div><div>${c.details.manufacturer||'—'}</div>
+        <div>Serial No.</div><div>${c.details.serial||'—'}</div>
+        <div>Verified On</div><div>${fmtDate(c.verifiedDate)}</div>
+        <div>Valid Until</div><div>${fmtDate(c.validUntil)}</div>
+        <div>Verified By</div><div>${c.verifiedRole} ${c.verifiedId}</div>
+        <div>Location / Region</div><div>${c.area}</div>
+        <div>Certificate ID</div><div>${c.id}</div>
+        <div>Digital Evidence</div><div>✓ Validated (Hash: <code>${c.evidenceHash}</code>)</div>
+      </div>
+      <div style="margin-top:12px;"><button class="btn brick" id="reportBtn">${t('pub_report_btn')}</button></div>
+      <div id="reportForm"></div>
+    </div>`;
+
+    resEl.querySelector('#reportBtn').addEventListener('click', () => {
+      resEl.querySelector('#reportForm').innerHTML = `<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px;">
+        <div class="field"><label>Issue Type</label><select id="rep_type"><option>Incorrect / Under-measurement</option><option>Damaged / Broken seal</option><option>Suspicious certificate</option><option>Certificate not displayed</option><option>Other</option></select></div>
+        <div class="field"><label>Description</label><textarea id="rep_desc" rows="3" placeholder="Provide details of transaction or discrepancy..."></textarea></div>
+        <button class="btn" id="rep_submit">Submit Grievance</button>
+        <div id="rep_out"></div>
+      </div>`;
+      resEl.querySelector('#rep_submit').addEventListener('click', () => {
+        const cid = 'CMP-' + new Date().getFullYear() + '-' + Math.floor(1000+Math.random()*8999);
+        resEl.querySelector('#rep_out').innerHTML = `<div class="msg ok" style="margin-top:8px;">Grievance registered — Complaint ID <strong>${cid}</strong>. Recorded in intelligence risk analytics.</div>`;
+      });
+    });
+  });
+}
+
+function openScannerModal(root){
+  const host = root.querySelector('#scannerHost');
+  const demoCerts = Object.keys(state.certificates).filter(id => !state.certificates[id].synthetic);
+  const fallbackCert = demoCerts[0] || Object.keys(state.certificates)[0];
+
+  host.innerHTML = `
+  <div class="scan-modal" id="scanModal">
+    <div class="scan-box">
+      <div style="color:#fff;font-size:11px;letter-spacing:0.05em;margin-bottom:10px;font-weight:bold;">CAMERA QR SCANNER</div>
+      <div class="viewfinder">
+        <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+        <div class="scanline"></div>
+      </div>
+      <div style="color:#aab;font-size:10px;margin-top:12px;">Point your camera at a MEIRA certificate QR label.</div>
+      ${fallbackCert ? `<button class="btn moss" id="simScan" style="margin-top:12px;width:100%;">Simulate Scan — ${fallbackCert}</button>` : ''}
+      <button class="btn ghost" id="closeScan" style="margin-top:8px;width:100%;background:#fff;">Cancel</button>
+    </div>
+  </div>`;
+  host.querySelector('#closeScan').addEventListener('click', () => { host.innerHTML = ''; });
+  const sim = host.querySelector('#simScan');
+  if (sim) sim.addEventListener('click', () => {
+    root.querySelector('#p_search').value = fallbackCert;
+    host.innerHTML = '';
+    root.querySelector('#p_go').click();
+  });
+}
+
+// ---------- ROUTER ----------
+async function render(){
+  const root = document.getElementById('meira-root');
+  if (!state) state = await loadState();
+  if (!session) { renderLogin(root); return; }
+  if (session.role === 'PUBLIC') { renderPublic(root); return; }
+  if (session.role === 'ADMIN') { renderAdmin(root); }
+  else if (session.role === 'OWNER') { renderOwner(root); }
+  else if (session.role === 'LMO') { renderField(root, 'LMO'); }
+  else if (session.role === 'GATC') { renderField(root, 'GATC'); }
+}
+
+(async () => { await render(); })();
+})();
+</script>
+</body>
+</html>
