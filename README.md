@@ -6,7 +6,7 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 **MEIRA (Metrology Enforcement & Intelligence Risk Analytics)** is a prototype digital platform for streamlining the Legal Metrology verification and enforcement process.
 
@@ -16,7 +16,7 @@ The prototype is designed around the idea of moving from a conventional inspecti
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 Traditional metrology verification processes can involve multiple manual steps, making it difficult to:
 
@@ -32,7 +32,7 @@ MEIRA addresses these challenges through a centralized digital workflow.
 
 ---
 
-## 💡 Proposed Solution
+## Proposed Solution
 
 MEIRA provides an integrated workflow where:
 
@@ -48,7 +48,7 @@ MEIRA provides an integrated workflow where:
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 ### 1. Role-Based Access
 
@@ -125,7 +125,7 @@ This allows verification requests to be prioritized according to their calculate
 
 ---
 
-## 🔍 Instrument Verification
+##  Instrument Verification
 
 The verification workflow contains multiple checks.
 
@@ -141,7 +141,7 @@ The system can reject the verification if mandatory physical requirements are no
 
 ---
 
-### ⚖️ Accuracy & Tolerance Testing
+###  Accuracy & Tolerance Testing
 
 The officer enters:
 
@@ -172,7 +172,7 @@ Compare with Tolerance
 
 ---
 
-## 🔢 Serial Number Verification
+## Serial Number Verification
 
 MEIRA includes serial-number verification using string matching.
 
@@ -190,7 +190,7 @@ This helps identify possible serial-number inconsistencies during verification.
 
 ---
 
-## 🧾 Digital Certificate Generation
+## Digital Certificate Generation
 
 After successful verification, MEIRA generates a digital certificate containing relevant verification information such as:
 
@@ -213,7 +213,7 @@ The certificate can subsequently be searched and verified through the public ver
 
 ---
 
-## 🔐 Risk Audit
+## Risk Audit
 
 Before certificate approval, the verifying officer performs a mandatory risk audit.
 
@@ -225,7 +225,7 @@ The prototype also demonstrates a fine workflow with a **₹5,000 fine under Sec
 
 ---
 
-## 🚨 Rejection Workflow
+## Rejection Workflow
 
 MEIRA supports rejection of verification requests when required conditions are not satisfied.
 
@@ -242,7 +242,7 @@ This creates a traceable verification decision rather than simply approving or r
 
 ---
 
-## 📊 Officer Activity & Anomaly Detection
+## Officer Activity & Anomaly Detection
 
 MEIRA includes a prototype anomaly-detection mechanism for officer activity.
 
@@ -276,7 +276,7 @@ Unusual Spike?
 
 ---
 
-## 🌐 Public Certificate Verification
+## Public Certificate Verification
 
 MEIRA provides a public verification interface where users can search for certificate information.
 
@@ -284,7 +284,7 @@ The system also provides a mechanism for users to report grievances related to v
 
 ---
 
-## 📷 Camera Support
+## Camera Support
 
 The prototype uses browser camera access for capturing instrument-related information.
 
@@ -300,7 +300,7 @@ The current prototype does **not** contain a full OCR engine such as Tesseract. 
 
 ---
 
-## 💾 Data Persistence
+## Data Persistence
 
 The prototype maintains application state using browser storage.
 
@@ -330,7 +330,7 @@ meira-shared-state
 
 ---
 
-## 🌍 Multi-Language Support
+##  Multi-Language Support
 
 MEIRA supports three interface languages:
 
@@ -342,7 +342,7 @@ The selected language is stored in browser storage.
 
 ---
 
-## 🏭 Supported Instrument Categories
+## Supported Instrument Categories
 
 ### Weighing Instruments
 
@@ -359,7 +359,7 @@ The selected language is stored in browser storage.
 
 ---
 
-## 📍 Supported Demonstration Regions
+## Supported Demonstration Regions
 
 The prototype includes demonstration regions in Ahmedabad:
 
@@ -374,7 +374,7 @@ The prototype includes demonstration regions in Ahmedabad:
 
 ---
 
-## 👥 User Roles
+## User Roles
 
 | Role   | Main Responsibility                                       |
 | ------ | --------------------------------------------------------- |
@@ -386,9 +386,105 @@ The prototype includes demonstration regions in Ahmedabad:
 
 ---
 
-## 🔄 Complete System Workflow
+## Complete System Workflow
 
 ```text
+                Complete System Workflow
+Owner submits verification request
+              ↓
+        Risk assessment
+              ↓
+     Admin review and assignment
+              ↓
+      ┌───────┴───────┐
+      ↓               ↓
+    LMO             GATC
+      │               │
+      └───────┬───────┘
+              ↓
+      Physical inspection
+              ↓
+       Accuracy testing
+              ↓
+      Serial verification
+              ↓
+          Risk audit
+              ↓
+     Certificate / rejection
+              ↓
+     Public verification
+                 ┌──────────────┐
+                 │    OWNER     │
+                 └──────┬───────┘
+                        │
+                        ▼
+              Submit Verification
+                   Request
+                        │
+                        ▼
+                Risk Calculation
+                        │
+                        ▼
+                 ┌──────────────┐
+                 │    ADMIN     │
+                 └──────┬───────┘
+                        │
+                        ▼
+                Officer Assignment
+                        │
+                        ▼
+                 ┌──────────────┐
+                 │     GATC     │
+                 └──────┬───────┘
+                        │
+                        ▼
+                 ┌──────────────┐
+                 │     LMO      │
+                 └──────┬───────┘
+                        │
+                        ▼
+                Physical Inspection
+                        │
+                        ▼
+                 Accuracy Testing
+                        │
+                        ▼
+                Serial Verification
+                        │
+                        ▼
+                   Risk Audit
+                        │
+                 ┌──────┴───────┐
+                 │              │
+                 ▼              ▼
+             APPROVED        REJECTED
+                 │
+                 ▼
+          Digital Certificate
+                 │
+                 ▼
+          Public Verification
+Owner
+  ↓
+Submit Verification Request
+  ↓
+Risk Assessment
+  ↓
+Admin Review
+  ↓
+Assignment to LMO / GATC
+  ↓
+Physical Inspection
+  ↓
+Accuracy & Tolerance Testing
+  ↓
+Serial Number Verification
+  ↓
+Risk Audit
+  ↓
+Certificate Approval / Rejection
+  ↓
+Public Certificate Verification
                  ┌──────────────┐
                  │    OWNER     │
                  └──────┬───────┘
@@ -439,7 +535,7 @@ The prototype includes demonstration regions in Ahmedabad:
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 The current prototype is intentionally lightweight.
 
@@ -470,43 +566,7 @@ No external backend, framework, package manager, or database is required to run 
 
 ---
 
-## 📁 Project Structure
-
-```text
-MEIRA/
-│
-├── index.html
-├── README.md
-├── LICENSE
-├── CONTRIBUTING.md
-├── .gitignore
-│
-└── docs/
-    ├── ARCHITECTURE.md
-    ├── DEMO.md
-    ├── FUTURE-SCOPE.md
-    └── PROJECT-INFO.md
-```
-
----
-
-## ▶️ How to Run
-
-### Option 1: Directly in Browser
-
-1. Download or clone the repository.
-2. Open the project folder.
-3. Open `index.html` in a modern web browser.
-
-### Option 2: VS Code
-
-Open the project in VS Code and run `index.html` using a local development server such as Live Server.
-
-No installation of Node.js, npm, React, or other frameworks is required for the current prototype.
-
----
-
-## 🔑 Demo Credentials
+## Demo Credentials
 
 The prototype contains predefined demonstration accounts.
 
@@ -523,7 +583,7 @@ The prototype contains predefined demonstration accounts.
 
 ---
 
-## 🧪 Suggested Demo Flow
+## Suggested Demo Flow
 
 For demonstrating the complete MEIRA workflow:
 
@@ -557,7 +617,7 @@ For demonstrating the complete MEIRA workflow:
 
 ---
 
-## ❌ Failure Scenarios for Demonstration
+## Failure Scenarios for Demonstration
 
 The system can also demonstrate rejection scenarios.
 
@@ -588,10 +648,83 @@ Broken Seal / Damaged Structure /
 Display Issue
               ↓
         Verification Failed
-```
-
+```       
 ---
+## Future Scope
+The current project is a functional prototype can be extended with:
 
-## 🔮 Future Scope
+Secure backend and database
+Government system integration
+Real OCR
+Secure authentication
+Cryptographic evidence hashing
+Verified GPS
+Real QR certificates
+Advanced anomaly detection
+Cloud evidence storage
+Notifications and analytics
+Prototype Note
 
-The current project is a functional prototype. A
+MEIRA is currently a demonstration prototype.
+
+Some features use simplified or simulated implementations, including authentication, storage, evidence hashing, QR representation, OCR-related capture, and GPS/context data.
+
+A production system would require secure backend infrastructure, authentication, database integration, cryptographic security, verified location services, and authorized government integration.
+
+
+
+This project is licensed under the MIT License.Future Scope
+
+The prototype can be extended with:
+
+Secure backend and database
+Government system integration
+Real OCR
+Secure authentication
+Cryptographic evidence hashing
+Verified GPS
+Real QR certificates
+Advanced anomaly detection
+Cloud evidence storage
+Notifications and analytics
+Prototype Note
+
+MEIRA is currently a demonstration prototype.
+
+Some features use simplified or simulated implementations, including authentication, storage, evidence hashing, QR representation, OCR-related capture, and GPS/context data.
+
+A production system would require secure backend infrastructure, authentication, database integration, cryptographic security, verified location services, and authorized government integration.
+
+This project is licensed under the MIT License.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
