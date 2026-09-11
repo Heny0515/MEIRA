@@ -1,0 +1,4 @@
+request_id,owner_name,area,category,instrument_type,manufacturer,model,serial,capacity,dimensions,accuracy_class
+REQ-KLP-01,ABC General Store,Kalupur,weighing,Electronic Platform Scale,Crown Scales,CS-50,CR-50-9821,50 kg,,
+REQ-VAT-01,Patel Weighing Co.,Vatva GIDC,weighing,Electronic Weighbridge,Essae Weighing,WB-60T,ES-60T-8819,60 Tonne,16m x 3m,Class III
+REQ-NVR-01,Navrang Jewellers & Bullion,Navrangpura,weighing,Price Computing Weighing Instrument,Mettler Toledo,JP-300,MT-JP-9011,6 kg,,
